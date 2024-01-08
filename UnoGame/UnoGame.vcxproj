@@ -156,6 +156,9 @@
   <ItemGroup>
     <ClCompile Include="UnoGame.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Docs\Idea Diagram.puml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
