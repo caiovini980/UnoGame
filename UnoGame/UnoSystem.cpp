@@ -59,7 +59,18 @@ void UnoSystem::StartMenu()
 
 void UnoSystem::StartGame()
 {
-    std::cout << "Starting game...\n";
+    std::cout << "Starting game...\n\n";
+
+    // CREATE PLAYERS
+    int amountOfPlayers;
+    
+    std::cout << "How many players are going to play? ";
+    std::cin >> amountOfPlayers;
+
+    // ORGANIZE BOARD
+
+    // START GAME
+    _gameStateManager->ChangeGameStateTo(GameStates::InGame);
 }
 
 void UnoSystem::ShowRules()
