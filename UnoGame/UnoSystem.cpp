@@ -3,6 +3,7 @@
 
 UnoSystem::UnoSystem()
 {
+    _gameStarted = true;
     SetupManagers();
     StartMenu();
 }
@@ -33,5 +34,13 @@ void UnoSystem::StartMenu()
     if(_inputManager->IsValid(choice, _gameStateManager->GetCurrentState()))
     {
         
+    }
+    else
+    {
+        if (_gameStarted)
+        {
+            std::cout << "Please enter a valid input.\nPress any key to continue...";
+            StartMenu();
+        }
     }
 }

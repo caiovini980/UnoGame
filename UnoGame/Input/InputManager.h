@@ -9,4 +9,7 @@ public:
     void Finish() override;
 
     bool IsValid(int choice, const GameStates& state);
+
+private:
+    int _maxInputForMenu = 3;    
 };
