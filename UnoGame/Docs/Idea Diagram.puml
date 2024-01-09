@@ -1,0 +1,167 @@
+﻿@startuml
+'https://plantuml.com/sequence-diagram
+
+'SYSTEMS'
+package UnoGame
+{
+    'ABSTRACTS'
+    abstract class ManagerBase
+    {
+        Setup
+        Update
+        Finish
+    }
+    
+    class UnoSystem
+    {
+        Initialize game
+        Initialize managers
+    }
+    
+    class CardBehaviour
+    {
+        - Data-Only
+        Number
+        Color
+        Special Effect? - can be null
+    }
+    
+    'INTERFACES'
+    
+    'ENUMS'
+    enum GameStates
+    {
+        InMenu
+        Running
+    }
+    
+    'MANAGERS'
+    package GameState
+    {
+        class GameStateManager
+        {
+            Control the game states (start, finish, restart)
+        }
+    }
+    
+    package Card
+    {
+        class CardManager
+        {
+            Create cards
+            Organize/shuffle the cards
+            Toss initial cards
+            Check if card have special effect
+        }
+    }
+    
+    package Turn
+    {
+        class TurnManager
+        {
+            Control who is going to play
+        }
+    }
+    
+    package Action
+    {
+        class ActionManager
+        {
+            Draw card
+            Play card
+            Pass turn
+        }
+    }
+    
+    package Player
+    {
+        class PlayerManager
+        {
+            Create/Setup Players
+        }
+        
+        class PlayerBehaviour
+        {
+            Cards on hand
+        }
+    }   
+    
+    package Rules
+    {
+        class RulesManager
+        {
+            +2
+            Reverse
+            Block
+            Shout "UNO"
+        }
+    }  
+    
+    package Input
+    {
+        class InputManager
+        {
+            Check if input is valid
+            Receive inputs from the console
+        } 
+    }
+           
+    package Visualization
+    {
+        class VisualizationManager
+        {
+            Show on screen
+            Format text
+            Color text
+            Scale text
+        }
+    }
+    
+    'UTILS'
+'    package Utils
+'    {
+'        class TimerHandler
+'        {
+'            Create timer 
+'            Notify when timer finished
+'        }
+'    }
+    
+    'RELATIONS'
+    'Parent - Child'
+    GameStateManager --|> ManagerBase
+    CardManager --|> ManagerBase
+    TurnManager --|> ManagerBase
+    ActionManager --|> ManagerBase
+    InputManager --|> ManagerBase
+    PlayerManager --|> ManagerBase
+    RulesManager --|> ManagerBase
+    VisualizationManager --|> ManagerBase
+    
+    'System - Managers'
+    UnoSystem --> GameStateManager
+    UnoSystem --> CardManager
+    UnoSystem --> TurnManager
+    UnoSystem --> ActionManager
+    UnoSystem --> InputManager
+    UnoSystem --> PlayerManager
+    UnoSystem --> RulesManager
+    UnoSystem --> VisualizationManager
+    
+    'A "has instance of" B. B cant live without A'
+    GameStateManager *-- GameStates
+    
+    'Interfaces'
+    
+    'A "has instance of" B. B can live without A'
+    CardManager --> CardBehaviour
+    PlayerManager --> PlayerBehaviour
+    PlayerBehaviour --> CardBehaviour
+    ActionManager --> CardBehaviour
+    RulesManager --> CardBehaviour
+    VisualizationManager --> CardBehaviour
+    InputManager --> GameStates
+}
+
+
+@enduml

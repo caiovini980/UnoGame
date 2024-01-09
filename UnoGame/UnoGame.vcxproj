@@ -154,7 +154,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action\ActionManager.cpp" />
+    <ClCompile Include="Card\CardManager.cpp" />
+    <ClCompile Include="GameState\GameStateManager.cpp" />
+    <ClCompile Include="Input\InputManager.cpp" />
+    <ClCompile Include="Player\PlayerManager.cpp" />
+    <ClCompile Include="Rules\RulesManager.cpp" />
+    <ClCompile Include="Turn\TurnManager.cpp" />
     <ClCompile Include="UnoGame.cpp" />
+    <ClCompile Include="UnoSystem.cpp" />
+    <ClCompile Include="Visualization\VisualizationManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Docs\Idea Diagram.puml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Action\ActionManager.h" />
+    <ClInclude Include="Card\CardManager.h" />
+    <ClInclude Include="GameStates.h" />
+    <ClInclude Include="GameState\GameStateManager.h" />
+    <ClInclude Include="Input\InputManager.h" />
+    <ClInclude Include="ManagerBase.h" />
+    <ClInclude Include="Player\PlayerManager.h" />
+    <ClInclude Include="Rules\RulesManager.h" />
+    <ClInclude Include="Turn\TurnManager.h" />
+    <ClInclude Include="UnoSystem.h" />
+    <ClInclude Include="Visualization\VisualizationManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
