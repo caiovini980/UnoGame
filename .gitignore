@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Builds
+/UnoGame/x64
+
+# Rider files
+/UnoGame/.idea/

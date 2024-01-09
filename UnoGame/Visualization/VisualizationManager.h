@@ -8,4 +8,5 @@ public:
     void Finish() override;
 
     void ClearScreen();
+    void WaitForInput();
 };

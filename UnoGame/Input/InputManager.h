@@ -10,6 +10,8 @@ public:
 
     bool IsValid(int choice, const GameStates& state);
 
+    int GetMaxInputForMenu() const;
+
 private:
     int _maxInputForMenu = 3;    
 };
