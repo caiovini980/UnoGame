@@ -8,26 +8,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2339aed5-12bd-404a-81db-f7ed4202322b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Action/ActionManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Action/ActionManager.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Card/CardManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Card/CardManager.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameState/GameStateManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameState/GameStateManager.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Input/InputManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Input/InputManager.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ManagerBase.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Player/PlayerManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Player/PlayerManager.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Rules/RulesManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Rules/RulesManager.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Turn/TurnManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Turn/TurnManager.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Visualization/VisualizationManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Visualization/VisualizationManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnoGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnoGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnoGame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UnoGame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnoGame.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/UnoGame.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Input/InputManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Input/InputManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Input/InputManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Input/InputManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnoSystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/UnoSystem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc143.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc143.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +50,9 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/GameStates.cpp" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -75,7 +70,7 @@
     "DefaultPlantUmlFileTemplate": "UML Sequence",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "update-documentation",
+    "git-widget-placeholder": "develop",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -154,7 +149,7 @@
       <updated>1704472290849</updated>
       <workItem from="1704472291945" duration="10664000" />
       <workItem from="1704719682168" duration="11758000" />
-      <workItem from="1704802424949" duration="4410000" />
+      <workItem from="1704802424949" duration="10685000" />
     </task>
     <servers />
   </component>
