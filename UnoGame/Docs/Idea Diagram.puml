@@ -160,6 +160,7 @@ package UnoGame
     ActionManager --> CardBehaviour
     RulesManager --> CardBehaviour
     VisualizationManager --> CardBehaviour
+    InputManager --> GameStates
 }
 
 

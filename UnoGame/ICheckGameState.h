@@ -1,0 +1,5 @@
+﻿class ICheckGameState
+{
+public:
+    
+};

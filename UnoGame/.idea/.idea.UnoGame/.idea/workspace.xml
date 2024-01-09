@@ -8,8 +8,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2339aed5-12bd-404a-81db-f7ed4202322b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Docs/Idea Diagram.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Action/ActionManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Action/ActionManager.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Card/CardManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Card/CardManager.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameState/GameStateManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameState/GameStateManager.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Input/InputManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Input/InputManager.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ManagerBase.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Player/PlayerManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Player/PlayerManager.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Rules/RulesManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Rules/RulesManager.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Turn/TurnManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Turn/TurnManager.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Visualization/VisualizationManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Visualization/VisualizationManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnoGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnoGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnoGame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UnoGame.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UnoGame.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/UnoGame.vcxproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,32 +62,36 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2aXkPz9LkA2P46uNbF9NLvflhtB" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C++ Project.UnoGame.executor": "Run",
+    "DefaultPlantUmlFileTemplate": "UML Sequence",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "update-documentation",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\User\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\User\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="UnoGame" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -132,7 +153,8 @@
       <option name="presentableId" value="Default" />
       <updated>1704472290849</updated>
       <workItem from="1704472291945" duration="10664000" />
-      <workItem from="1704719682168" duration="4388000" />
+      <workItem from="1704719682168" duration="11758000" />
+      <workItem from="1704802424949" duration="4410000" />
     </task>
     <servers />
   </component>
