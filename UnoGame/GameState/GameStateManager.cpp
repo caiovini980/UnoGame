@@ -8,3 +8,8 @@ void GameStateManager::Setup()
 void GameStateManager::Finish()
 {
 }
+
+GameStates GameStateManager::GetCurrentState() const
+{
+    return _currentState;
+}

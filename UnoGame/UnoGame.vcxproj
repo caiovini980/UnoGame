@@ -171,6 +171,7 @@
   <ItemGroup>
     <ClInclude Include="Action\ActionManager.h" />
     <ClInclude Include="Card\CardManager.h" />
+    <ClInclude Include="GameStates.h" />
     <ClInclude Include="GameState\GameStateManager.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="ManagerBase.h" />

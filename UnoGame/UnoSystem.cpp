@@ -26,4 +26,12 @@ void UnoSystem::StartMenu()
     std::cout << "1 - Start Game\n";
     std::cout << "2 - Rules\n";
     std::cout << "3 - Close Game\n\n";
+    
+    int choice;
+    std::cin >> choice;
+    
+    if(_inputManager->IsValid(choice, _gameStateManager->GetCurrentState()))
+    {
+        
+    }
 }
