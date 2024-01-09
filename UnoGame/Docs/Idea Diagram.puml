@@ -21,9 +21,9 @@ package UnoGame
     class CardBehaviour
     {
         - Data-Only
-        Number
-        Color
-        Special Effect? - can be null
+        Number - can be null
+        CardColors
+        CardTypes
     }
     
     'INTERFACES'
@@ -33,6 +33,22 @@ package UnoGame
     {
         InMenu
         Running
+    }
+    
+    enum CardTypes
+    {
+        Number
+        Block
+        Plus
+        Reverse
+    }
+    
+    enum CardColors
+    {
+        Green
+        Yellow
+        Blue
+        Red
     }
     
     'MANAGERS'
@@ -60,6 +76,7 @@ package UnoGame
         class TurnManager
         {
             Control who is going to play
+            Organize player order
         }
     }
     
@@ -150,6 +167,8 @@ package UnoGame
     
     'A "has instance of" B. B cant live without A'
     GameStateManager *-- GameStates
+    CardBehaviour *-- CardColors
+    CardBehaviour *-- CardTypes
     
     'Interfaces'
     
@@ -160,6 +179,8 @@ package UnoGame
     ActionManager --> CardBehaviour
     RulesManager --> CardBehaviour
     VisualizationManager --> CardBehaviour
+    
+    
 }
 
 
