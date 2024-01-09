@@ -11,13 +11,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnoGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnoGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Input/InputManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Input/InputManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Input/InputManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Input/InputManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnoSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UnoSystem.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UnoSystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/UnoSystem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualization/VisualizationManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Visualization/VisualizationManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualization/VisualizationManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Visualization/VisualizationManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.ilk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.command.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.read.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/link.read.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc143.idb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc143.pdb" afterDir="false" />
     </list>
@@ -51,6 +53,9 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/include/vector" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GameStates.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -70,7 +75,7 @@
     "DefaultPlantUmlFileTemplate": "UML Sequence",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "implement-main-menu-behaviour",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -149,7 +154,7 @@
       <updated>1704472290849</updated>
       <workItem from="1704472291945" duration="10664000" />
       <workItem from="1704719682168" duration="11758000" />
-      <workItem from="1704802424949" duration="10685000" />
+      <workItem from="1704802424949" duration="14663000" />
     </task>
     <servers />
   </component>

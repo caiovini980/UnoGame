@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -27,9 +28,11 @@ private:
     std::unique_ptr<TurnManager> _turnManager = std::make_unique<TurnManager>();
     std::unique_ptr<VisualizationManager> _visualizationManager = std::make_unique<VisualizationManager>();
     std::unique_ptr<GameStateManager> _gameStateManager = std::make_unique<GameStateManager>();
-
-    bool _gameStarted = false;
     
     void SetupManagers() const;
+    
     void StartMenu();
+    void StartGame();
+    void ShowRules();
+    void CloseGame();
 };

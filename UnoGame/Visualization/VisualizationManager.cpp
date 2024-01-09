@@ -14,3 +14,8 @@ void VisualizationManager::ClearScreen()
 {
     system("cls");
 }
+
+void VisualizationManager::WaitForInput()
+{
+    system("pause");
+}

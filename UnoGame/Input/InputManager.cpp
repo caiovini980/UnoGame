@@ -17,7 +17,6 @@ bool InputManager::IsValid(int choice, const GameStates& state)
         // accept from 1 to 3
         if (choice > 0 && choice <= _maxInputForMenu)
         {
-            std::cout << "Input valid for menu.\n";
             return true;
         }
     }
@@ -31,4 +30,6 @@ bool InputManager::IsValid(int choice, const GameStates& state)
     
     return false;
 }
+
+int InputManager::GetMaxInputForMenu() const { return _maxInputForMenu; }
 
