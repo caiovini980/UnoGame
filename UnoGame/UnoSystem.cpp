@@ -1,6 +1,5 @@
 ﻿#include "UnoSystem.h"
 
-
 UnoSystem::UnoSystem()
 {
     SetupManagers();
@@ -59,7 +58,34 @@ void UnoSystem::StartMenu()
 
 void UnoSystem::StartGame()
 {
-    std::cout << "Starting game...\n";
+    std::cout << "Starting game...\n\n";
+
+    // CREATE PLAYERS
+    const std::string QuestionNumberOfPlayers = "How many players are going to play? ";
+    const int amountOfPlayers = _visualizationManager->AskForInput<int>(QuestionNumberOfPlayers);
+    
+    std::vector<std::string> names{};
+
+    for (int i = 0; i < amountOfPlayers; i++)
+    {
+        std::string AskForAName = "Insert a name ";
+        std::string name = _visualizationManager->AskForInput<std::string>(AskForAName);
+
+        names.push_back(name);
+    }
+    
+    // ORGANIZE BOARD
+    _playerManager->CreatePlayers(names);
+
+    // {
+    //     for (auto name : names)
+    //     {
+    //         std::cout << name << "\n";
+    //     }
+    // }
+    
+    // START GAME
+    _gameStateManager->ChangeGameStateTo(GameStates::InGame);
 }
 
 void UnoSystem::ShowRules()

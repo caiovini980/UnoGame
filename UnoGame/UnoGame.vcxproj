@@ -158,6 +158,7 @@
     <ClCompile Include="Card\CardManager.cpp" />
     <ClCompile Include="GameState\GameStateManager.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
+    <ClCompile Include="PlayerBehaviour.cpp" />
     <ClCompile Include="Player\PlayerManager.cpp" />
     <ClCompile Include="Rules\RulesManager.cpp" />
     <ClCompile Include="Turn\TurnManager.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="GameState\GameStateManager.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="ManagerBase.h" />
+    <ClInclude Include="PlayerBehaviour.h" />
     <ClInclude Include="Player\PlayerManager.h" />
     <ClInclude Include="Rules\RulesManager.h" />
     <ClInclude Include="Turn\TurnManager.h" />
