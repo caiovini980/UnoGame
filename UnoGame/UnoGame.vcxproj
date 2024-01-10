@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action\ActionManager.cpp" />
+    <ClCompile Include="CardBehaviour.cpp" />
     <ClCompile Include="Card\CardManager.cpp" />
     <ClCompile Include="GameState\GameStateManager.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
@@ -171,6 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action\ActionManager.h" />
+    <ClInclude Include="CardBehaviour.h" />
+    <ClInclude Include="CardColors.h" />
+    <ClInclude Include="CardTypes.h" />
     <ClInclude Include="Card\CardManager.h" />
     <ClInclude Include="GameStates.h" />
     <ClInclude Include="GameState\GameStateManager.h" />

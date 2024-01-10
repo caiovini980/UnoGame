@@ -9,6 +9,11 @@ void GameStateManager::Finish()
 {
 }
 
+void GameStateManager::ChangeGameStateTo(const GameStates& target)
+{
+    _currentState = target;
+}
+
 GameStates GameStateManager::GetCurrentState() const
 {
     return _currentState;
