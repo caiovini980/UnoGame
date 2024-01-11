@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <vector>
+#include <algorithm>
+#include <random>
 
 #include "../CardBehaviour.h"
 #include "../ManagerBase.h"
@@ -10,7 +12,7 @@ public:
     void Setup() override;
     void Finish() override;
 
-    // void ShuffleDeck();
+    void ShuffleCards();
 
 private:
     std::vector<CardBehaviour> _drawDeck;
@@ -34,4 +36,5 @@ private:
     void CreatePlusCards(CardColors color);
     void CreateCardsFromColor(CardColors color);
     void CreateCardsAndAddToDrawDeck(CardColors color, CardTypes type, int number, int amountToAdd);
+    
 };

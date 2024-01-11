@@ -77,6 +77,7 @@ void UnoSystem::StartGame()
     // ORGANIZE BOARD
     _visualizationManager->ClearScreen();
     _playerManager->CreatePlayers(std::move(names));
+    _cardManager->ShuffleCards();
     names.clear();
     
     // START GAME
