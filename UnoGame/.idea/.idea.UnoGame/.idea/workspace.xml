@@ -10,8 +10,7 @@
     <list default="true" id="2339aed5-12bd-404a-81db-f7ed4202322b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/Card/CardManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Card/CardManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Card/CardManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Card/CardManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CardBehaviour.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/CardBehaviour.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CardBehaviour.h" beforeDir="false" afterPath="$PROJECT_DIR$/CardBehaviour.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Player/PlayerManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Player/PlayerManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Player/PlayerManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Player/PlayerManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PlayerBehaviour.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PlayerBehaviour.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PlayerBehaviour.h" beforeDir="false" afterPath="$PROJECT_DIR$/PlayerBehaviour.h" afterDir="false" />
@@ -55,36 +54,7 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/include/random" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/include/vector" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GameStates.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -111,7 +81,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "editor.preferences.tabs",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -187,7 +157,7 @@
       <workItem from="1704802424949" duration="23006000" />
       <workItem from="1704904425939" duration="7427000" />
       <workItem from="1704977119305" duration="7000" />
-      <workItem from="1704978896870" duration="8683000" />
+      <workItem from="1704978896870" duration="14843000" />
     </task>
     <servers />
   </component>
@@ -224,14 +194,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Card/CardManager.cpp</url>
-          <line>77</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Card/CardManager.cpp</url>
-          <line>19</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/UnoSystem.cpp</url>
+          <line>83</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
