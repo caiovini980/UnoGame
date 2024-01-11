@@ -1,15 +1,14 @@
 ﻿#include "CardBehaviour.h"
 
 CardBehaviour::CardBehaviour(CardColors color, CardTypes type, int number, int amountToAdd)
-    : _cardColor(color), _cardType(type), _cardNumber(number), _amountToDrawNext(amountToAdd)
 {
-    data.color = _cardColor;
-    data.type = _cardType;
-    data.number = _cardNumber;
-    data.amountToDrawNext = _amountToDrawNext;
+    _data.color = color;
+    _data.type = type;
+    _data.number = number;
+    _data.amountToDrawNext = amountToAdd;
 }
 
 CardData CardBehaviour::GetCardData() const
 {
-    return data;
+    return _data;
 }

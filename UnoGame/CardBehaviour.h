@@ -19,9 +19,5 @@ public:
     CardData GetCardData() const;
     
 private:
-    CardData data;
-    CardColors _cardColor;
-    CardTypes _cardType;
-    int _cardNumber;
-    int _amountToDrawNext;
+    CardData _data;
 };

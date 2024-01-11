@@ -73,6 +73,7 @@ void CardManager::CreateCardsAndAddToDrawDeck(CardColors color, CardTypes type, 
 
 void CardManager::ShuffleCards()
 {
+    // TODO - Make a seed
     auto rng = std::default_random_engine{};
     std::shuffle(std::begin(_drawDeck), std::end(_drawDeck), rng);
     {}
