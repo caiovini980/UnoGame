@@ -9,10 +9,15 @@ void PlayerManager::Finish()
 {
 }
 
-void PlayerManager::CreatePlayers(const std::vector<std::string>& playerNames)
+void PlayerManager::CreatePlayers(std::vector<std::string>&& playerNames)
 {
-    for (int i = 0; i < playerNames.size(); i++)
+    std::vector<std::string> names = std::move(playerNames);
+    
+    for (int i = 0; i < names.size(); i++)
     {
-        // TODO CONTINUE
+        PlayerBehaviour newPlayer{std::move(names[i])};
+        players.push_back(&newPlayer);
+        
+        std::cout << "Created player " << *players[i]->GetName() << "\n";
     }
 }

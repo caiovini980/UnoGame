@@ -75,14 +75,9 @@ void UnoSystem::StartGame()
     }
     
     // ORGANIZE BOARD
-    _playerManager->CreatePlayers(names);
-
-    // {
-    //     for (auto name : names)
-    //     {
-    //         std::cout << name << "\n";
-    //     }
-    // }
+    _visualizationManager->ClearScreen();
+    _playerManager->CreatePlayers(std::move(names));
+    names.clear();
     
     // START GAME
     _gameStateManager->ChangeGameStateTo(GameStates::InGame);
