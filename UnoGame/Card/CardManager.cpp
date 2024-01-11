@@ -71,10 +71,24 @@ void CardManager::CreateCardsAndAddToDrawDeck(CardColors color, CardTypes type, 
     _drawDeck.push_back(card);
 }
 
+
 void CardManager::ShuffleCards()
 {
     // TODO - Make a seed
     auto rng = std::default_random_engine{};
     std::shuffle(std::begin(_drawDeck), std::end(_drawDeck), rng);
-    {}
+}
+
+CardBehaviour* CardManager::GetNextCard()
+{
+    CardBehaviour& selectedCard = _drawDeck[1];
+    
+    // remove this card from the draw deck
+    // _drawDeck.erase(
+    //     std::remove(
+    //         _drawDeck.begin(),_drawDeck.end(), selectedCard),_drawDeck.end());
+
+    _drawDeck.erase(_drawDeck.begin() + 1);
+    
+    return &selectedCard;
 }

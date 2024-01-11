@@ -78,6 +78,16 @@ void UnoSystem::StartGame()
     _visualizationManager->ClearScreen();
     _playerManager->CreatePlayers(std::move(names));
     _cardManager->ShuffleCards();
+
+    CardBehaviour* card = _cardManager->GetNextCard();
+    
+    for (int i = 0; i < amountOfPlayers; i++)
+    {
+        // dar as 7 primeiras cartas do drawDeck
+        
+        // _playerManager->GetPlayers()[i]->ReceiveCard();
+    }
+    
     names.clear();
     
     // START GAME

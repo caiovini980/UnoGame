@@ -11,6 +11,7 @@ public:
     void Finish() override;
     
     void CreatePlayers(std::vector<std::string>&& playerNames);
+    std::vector<PlayerBehaviour*>& GetPlayers();
 
 private:
     std::vector<PlayerBehaviour*> players;

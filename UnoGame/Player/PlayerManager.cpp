@@ -21,3 +21,8 @@ void PlayerManager::CreatePlayers(std::vector<std::string>&& playerNames)
         std::cout << "Created player " << *players[i]->GetName() << "\n";
     }
 }
+
+std::vector<PlayerBehaviour*>& PlayerManager::GetPlayers()
+{
+    return players;
+}

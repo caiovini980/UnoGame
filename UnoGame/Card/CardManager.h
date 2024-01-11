@@ -13,6 +13,7 @@ public:
     void Finish() override;
 
     void ShuffleCards();
+    CardBehaviour* GetNextCard();
 
 private:
     std::vector<CardBehaviour> _drawDeck;
@@ -36,5 +37,4 @@ private:
     void CreatePlusCards(CardColors color);
     void CreateCardsFromColor(CardColors color);
     void CreateCardsAndAddToDrawDeck(CardColors color, CardTypes type, int number, int amountToAdd);
-    
 };
