@@ -13,8 +13,8 @@ const std::vector<PlayerBehaviour>& PlayerManager::CreatePlayers(std::vector<std
 {
     for (int i = 0; i < playerNames.size(); i++)
     {
-        PlayerBehaviour newPlayer{playerNames[i]};
-        players.push_back(newPlayer);
+        PlayerBehaviour newPlayer{std::move(playerNames[i])};
+        players.emplace_back(newPlayer);
     }
 
     return players;

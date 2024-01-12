@@ -18,25 +18,6 @@ void UnoSystem::SetupManagers() const
     _visualizationManager->Setup();
 }
 
-void UnoSystem::SetupBoard(std::vector<std::string>& names) const
-{
-    std::vector<PlayerBehaviour> players = _playerManager->CreatePlayers(names);
-    
-    // ORGANIZE BOARD
-    _visualizationManager->ClearScreen();
-    _cardManager->ShuffleCards();
-    
-    const int initialHandSize = _cardManager->GetInitialHandSize();
-    for (int i = 0; i < players.size(); i++)
-    {
-        for (int j = 0; j < initialHandSize; j++)
-        {
-            const CardBehaviour card = _cardManager->PopNextCardFromDrawDeck();
-            players[i].ReceiveCard(card);
-        }
-    }
-}
-
 void UnoSystem::StartMenu()
 {
     _visualizationManager->ClearScreen();
@@ -75,22 +56,6 @@ void UnoSystem::StartMenu()
     }
 }
 
-void UnoSystem::GetPlayersInfo(std::vector<std::string>& names)
-{
-    const std::string QuestionNumberOfPlayers = "How many players are going to play? ";
-    const int amountOfPlayers = _visualizationManager->AskForInput<int>(QuestionNumberOfPlayers);
-
-    names = {};
-
-    for (int i = 0; i < amountOfPlayers; i++)
-    {
-        std::string AskForAName = "Insert a name ";
-        std::string name = _visualizationManager->AskForInput<std::string>(AskForAName);
-
-        names.push_back(name);
-    }
-}
-
 void UnoSystem::StartGame()
 {
     std::cout << "Starting game...\n\n";
@@ -102,6 +67,42 @@ void UnoSystem::StartGame()
     
     // START GAME
     _gameStateManager->ChangeGameStateTo(GameStates::InGame);
+}
+
+void UnoSystem::SetupBoard(std::vector<std::string>& names)
+{
+    std::vector<PlayerBehaviour> players = _playerManager->CreatePlayers(names);
+    
+    // ORGANIZE BOARD
+    _visualizationManager->ClearScreen();
+    _cardManager->ShuffleCards();
+    
+    const int initialHandSize = _cardManager->GetInitialHandSize();
+    for (int i = 0; i < players.size(); i++)
+    {
+        for (int j = 0; j < initialHandSize; j++)
+        {
+            const CardBehaviour card = _cardManager->PopNextCardFromDrawDeck();
+            players[i].ReceiveCard(card);
+        }
+    }
+}
+
+void UnoSystem::GetPlayersInfo(std::vector<std::string>& outNames) const
+{
+    const std::string QuestionNumberOfPlayers = "How many players are going to play? ";
+    const int amountOfPlayers = _visualizationManager->AskForInput<int>(QuestionNumberOfPlayers);
+
+    outNames = {};
+    outNames.reserve(amountOfPlayers);
+
+    for (int i = 0; i < amountOfPlayers; i++)
+    {
+        std::string AskForAName = "Insert a name ";
+        std::string name = _visualizationManager->AskForInput<std::string>(AskForAName);
+
+        outNames.push_back(name);
+    }
 }
 
 void UnoSystem::ShowRules()
