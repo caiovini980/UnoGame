@@ -31,10 +31,10 @@ private:
     
     void SetupManagers() const;
 
-    void SetupBoard(std::vector<std::string>& names) const;
+    void SetupBoard(std::vector<std::string>& names);
     
     void StartMenu();
-    void GetPlayersInfo(std::vector<std::string>& names);
+    void GetPlayersInfo(std::vector<std::string>& outNames) const;
     void StartGame();
     void ShowRules();
     void CloseGame();

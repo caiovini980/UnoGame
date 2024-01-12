@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-PlayerBehaviour::PlayerBehaviour(std::string& name)
+PlayerBehaviour::PlayerBehaviour(std::string&& name)
     : playerName(std::move(name))
 {
     std::cout << "Created player " << playerName << "\n";
@@ -31,9 +31,9 @@ void PlayerBehaviour::ReceiveCard(CardBehaviour card)
 //     return selectedCard;
 // }
 
-std::vector<CardBehaviour>* PlayerBehaviour::GetCards()
+const std::vector<CardBehaviour>& PlayerBehaviour::GetCards()
 {
-    return &cardsOnHand;
+    return cardsOnHand;
 }
 
 std::string* PlayerBehaviour::GetName()

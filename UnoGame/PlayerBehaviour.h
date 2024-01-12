@@ -7,13 +7,13 @@
 class PlayerBehaviour
 {
 public:
-    PlayerBehaviour(std::string& name);
+    PlayerBehaviour(std::string&& name);
     ~PlayerBehaviour() = default;
     
     void ReceiveCard(CardBehaviour card);
     CardBehaviour* PlayCard(int cardOnHandID);
     
-    std::vector<CardBehaviour>* GetCards();
+    const std::vector<CardBehaviour>& GetCards();
     std::string* GetName();
     
 private:
