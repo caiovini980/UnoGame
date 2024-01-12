@@ -10,10 +10,6 @@ void CardManager::Finish()
 {
 }
 
-// void CardManager::ShuffleDeck()
-// {
-// }
-
 void CardManager::CreateAllCards()
 {
     CreateCardsFromColor(CardColors::Red);
@@ -71,6 +67,33 @@ void CardManager::CreatePlusCards(CardColors color)
 
 void CardManager::CreateCardsAndAddToDrawDeck(CardColors color, CardTypes type, int number, int amountToAdd)
 {
-    const CardBehaviour card{color, type, number, amountToAdd};
+    CardBehaviour card{color, type, number, amountToAdd};
     _drawDeck.push_back(card);
+}
+
+
+void CardManager::ShuffleCards()
+{
+    // TODO - Make a seed
+    auto rng = std::default_random_engine{};
+    std::shuffle(std::begin(_drawDeck), std::end(_drawDeck), rng);
+}
+
+void CardManager::RemoveCardFromDrawDeck()
+{
+    _drawDeck.erase(_drawDeck.begin() + 1);
+}
+
+CardBehaviour CardManager::PopNextCardFromDrawDeck()
+{
+    CardBehaviour selectedCard = _drawDeck.back();
+
+    _drawDeck.pop_back();
+    
+    return selectedCard;
+}
+
+int CardManager::GetInitialHandSize()
+{
+    return _initialHandSize;
 }

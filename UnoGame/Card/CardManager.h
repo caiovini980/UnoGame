@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <vector>
+#include <algorithm>
+#include <random>
 
 #include "../CardBehaviour.h"
 #include "../ManagerBase.h"
@@ -10,8 +12,14 @@ public:
     void Setup() override;
     void Finish() override;
 
-    // void ShuffleDeck();
+    CardBehaviour PopNextCardFromDrawDeck();
+    
 
+    int GetInitialHandSize();
+    
+    void ShuffleCards();
+    void RemoveCardFromDrawDeck();
+    
 private:
     std::vector<CardBehaviour> _drawDeck;
     std::vector<CardBehaviour> _tossDeck;

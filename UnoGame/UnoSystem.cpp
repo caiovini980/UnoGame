@@ -18,6 +18,25 @@ void UnoSystem::SetupManagers() const
     _visualizationManager->Setup();
 }
 
+void UnoSystem::SetupBoard(std::vector<std::string>& names) const
+{
+    std::vector<PlayerBehaviour> players = _playerManager->CreatePlayers(names);
+    
+    // ORGANIZE BOARD
+    _visualizationManager->ClearScreen();
+    _cardManager->ShuffleCards();
+    
+    const int initialHandSize = _cardManager->GetInitialHandSize();
+    for (int i = 0; i < players.size(); i++)
+    {
+        for (int j = 0; j < initialHandSize; j++)
+        {
+            const CardBehaviour card = _cardManager->PopNextCardFromDrawDeck();
+            players[i].ReceiveCard(card);
+        }
+    }
+}
+
 void UnoSystem::StartMenu()
 {
     _visualizationManager->ClearScreen();
@@ -56,15 +75,12 @@ void UnoSystem::StartMenu()
     }
 }
 
-void UnoSystem::StartGame()
+void UnoSystem::GetPlayersInfo(std::vector<std::string>& names)
 {
-    std::cout << "Starting game...\n\n";
-
-    // CREATE PLAYERS
     const std::string QuestionNumberOfPlayers = "How many players are going to play? ";
     const int amountOfPlayers = _visualizationManager->AskForInput<int>(QuestionNumberOfPlayers);
-    
-    std::vector<std::string> names{};
+
+    names = {};
 
     for (int i = 0; i < amountOfPlayers; i++)
     {
@@ -73,16 +89,16 @@ void UnoSystem::StartGame()
 
         names.push_back(name);
     }
-    
-    // ORGANIZE BOARD
-    _playerManager->CreatePlayers(names);
+}
 
-    // {
-    //     for (auto name : names)
-    //     {
-    //         std::cout << name << "\n";
-    //     }
-    // }
+void UnoSystem::StartGame()
+{
+    std::cout << "Starting game...\n\n";
+    
+    std::vector<std::string> names;
+    GetPlayersInfo(names);
+    SetupBoard(names);
+    names.clear();
     
     // START GAME
     _gameStateManager->ChangeGameStateTo(GameStates::InGame);
