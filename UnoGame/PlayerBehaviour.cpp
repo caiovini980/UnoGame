@@ -2,13 +2,16 @@
 
 #include <iostream>
 
-PlayerBehaviour::PlayerBehaviour(std::string&& name)
+PlayerBehaviour::PlayerBehaviour(std::string& name)
     : playerName(std::move(name))
-{}
-
-void PlayerBehaviour::ReceiveCard(CardBehaviour& card)
 {
-    cardsOnHand.push_back(&card);
+    std::cout << "Created player " << playerName << "\n";
+}
+
+void PlayerBehaviour::ReceiveCard(CardBehaviour card)
+{
+    cardsOnHand.push_back(card);
+    std::cout << "amount of cards on " << playerName << "'s hand: " << cardsOnHand.size() << "\n"; 
 }
 
 // CardBehaviour* PlayerBehaviour::PlayCard(int cardOnHandID)
@@ -28,7 +31,7 @@ void PlayerBehaviour::ReceiveCard(CardBehaviour& card)
 //     return selectedCard;
 // }
 
-std::vector<CardBehaviour*>* PlayerBehaviour::GetCards()
+std::vector<CardBehaviour>* PlayerBehaviour::GetCards()
 {
     return &cardsOnHand;
 }

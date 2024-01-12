@@ -79,16 +79,21 @@ void CardManager::ShuffleCards()
     std::shuffle(std::begin(_drawDeck), std::end(_drawDeck), rng);
 }
 
-CardBehaviour* CardManager::GetNextCard()
+void CardManager::RemoveCardFromDrawDeck()
 {
-    CardBehaviour& selectedCard = _drawDeck[1];
-    
-    // remove this card from the draw deck
-    // _drawDeck.erase(
-    //     std::remove(
-    //         _drawDeck.begin(),_drawDeck.end(), selectedCard),_drawDeck.end());
-
     _drawDeck.erase(_drawDeck.begin() + 1);
+}
+
+CardBehaviour CardManager::PopNextCardFromDrawDeck()
+{
+    CardBehaviour selectedCard = _drawDeck.back();
+
+    _drawDeck.pop_back();
     
-    return &selectedCard;
+    return selectedCard;
+}
+
+int CardManager::GetInitialHandSize()
+{
+    return _initialHandSize;
 }

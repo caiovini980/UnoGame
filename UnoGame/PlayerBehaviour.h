@@ -7,16 +7,16 @@
 class PlayerBehaviour
 {
 public:
-    PlayerBehaviour(std::string&& name);
+    PlayerBehaviour(std::string& name);
     ~PlayerBehaviour() = default;
     
-    void ReceiveCard(CardBehaviour& card);
+    void ReceiveCard(CardBehaviour card);
     CardBehaviour* PlayCard(int cardOnHandID);
     
-    std::vector<CardBehaviour*>* GetCards();
+    std::vector<CardBehaviour>* GetCards();
     std::string* GetName();
     
 private:
-    std::vector<CardBehaviour*> cardsOnHand;
+    std::vector<CardBehaviour> cardsOnHand;
     std::string playerName;
 };

@@ -30,8 +30,11 @@ private:
     std::unique_ptr<GameStateManager> _gameStateManager = std::make_unique<GameStateManager>();
     
     void SetupManagers() const;
+
+    void SetupBoard(std::vector<std::string>& names) const;
     
     void StartMenu();
+    void GetPlayersInfo(std::vector<std::string>& names);
     void StartGame();
     void ShowRules();
     void CloseGame();

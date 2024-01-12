@@ -12,9 +12,14 @@ public:
     void Setup() override;
     void Finish() override;
 
-    void ShuffleCards();
-    CardBehaviour* GetNextCard();
+    CardBehaviour PopNextCardFromDrawDeck();
+    
 
+    int GetInitialHandSize();
+    
+    void ShuffleCards();
+    void RemoveCardFromDrawDeck();
+    
 private:
     std::vector<CardBehaviour> _drawDeck;
     std::vector<CardBehaviour> _tossDeck;
