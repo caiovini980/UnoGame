@@ -83,7 +83,11 @@ void UnoSystem::StartGame()
         std::cout << "\nThe next player to play is: " << *nextPlayer.GetName() << "\n";
         _visualizationManager->WaitForInput();
         
-        // show card on top of deck
+        // show card on top of toss deck
+        CardBehaviour cardOnTopOfTossDeck = _cardManager->GetTopOfTossDeck();
+        _visualizationManager->ShowTable(cardOnTopOfTossDeck, nextPlayer.GetCards());
+        _visualizationManager->WaitForInput();
+        
         // show player's cards
         // ask for input
         // validate input

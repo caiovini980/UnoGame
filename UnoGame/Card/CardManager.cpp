@@ -4,7 +4,6 @@ void CardManager::Setup()
 {
     std::cout << "Setting up Card Manager\n";
     _drawDeck.reserve(_initialDeckSize);
-    _tossDeck.reserve(_initialDeckSize);
     CreateAllCards();
 }
 
@@ -88,14 +87,23 @@ void CardManager::RemoveCardFromDrawDeck()
 
 CardBehaviour CardManager::PopNextCardFromDrawDeck()
 {
-    CardBehaviour selectedCard = _drawDeck.back();
-
+    const CardBehaviour selectedCard = _drawDeck.back();
     _drawDeck.pop_back();
-    
     return selectedCard;
 }
 
-int CardManager::GetInitialHandSize()
+CardBehaviour& CardManager::GetTopOfTossDeck()
+{
+    if (_tossDeck.empty())
+    {
+        const CardBehaviour nextCard = PopNextCardFromDrawDeck();
+        _tossDeck.push(nextCard);
+    }
+
+    return _tossDeck.top();
+}
+
+int CardManager::GetInitialHandSize() const
 {
     return _initialHandSize;
 }

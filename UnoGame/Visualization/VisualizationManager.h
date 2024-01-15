@@ -1,5 +1,8 @@
 ﻿#pragma once
+#include <vector>
+
 #include "../ManagerBase.h"
+#include "../CardBehaviour.h"
 
 class VisualizationManager : public ManagerBase
 {
@@ -9,7 +12,7 @@ public:
 
     void ClearScreen();
     void WaitForInput();
-
+    void ShowTable(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards);
     
     // TEMPLATES
     template <class T> T AskForInput(const std::string& question)
@@ -27,4 +30,10 @@ public:
 
         return input;
     }
+
+private:
+    const char* CardColors[4] = { "Green", "Yellow", "Blue", "Red" };
+    const char* CardTypes[4] = { "Number", "Block", "Plus", "Reverse" };
+    
+    void ShowCard(const CardBehaviour& card) const;
 };

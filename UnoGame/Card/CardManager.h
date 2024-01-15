@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <vector>
+#include <stack>
 #include <algorithm>
 #include <random>
 
@@ -13,16 +14,16 @@ public:
     void Finish() override;
 
     CardBehaviour PopNextCardFromDrawDeck();
-    
+    CardBehaviour& GetTopOfTossDeck();
 
-    int GetInitialHandSize();
+    int GetInitialHandSize() const;
     
     void ShuffleCards();
     void RemoveCardFromDrawDeck();
     
 private:
     std::vector<CardBehaviour> _drawDeck;
-    std::vector<CardBehaviour> _tossDeck;
+    std::stack<CardBehaviour> _tossDeck;
 
     int _initialDeckSize = 104;
     int _initialHandSize = 7;
