@@ -9,20 +9,15 @@
   <component name="ChangeListManager">
     <list default="true" id="2339aed5-12bd-404a-81db-f7ed4202322b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnoGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnoGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Card/CardManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Card/CardManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Idea Diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/Idea Diagram.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player/PlayerManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Player/PlayerManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PlayerBehaviour.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PlayerBehaviour.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turn/TurnManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Turn/TurnManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turn/TurnManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Turn/TurnManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UnoSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UnoSystem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnoSystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/UnoSystem.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.ilk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.command.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.read.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/CL.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/UnoGame.tlog/link.read.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc143.idb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc143.pdb" afterDir="false" />
     </list>
@@ -60,6 +55,21 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/include/memory" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/include/mutex" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/include/random" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/include/utility" root0="SKIP_HIGHLIGHTING" />
@@ -169,7 +179,7 @@
       <workItem from="1704977119305" duration="7000" />
       <workItem from="1704978896870" duration="16561000" />
       <workItem from="1705062144547" duration="14618000" />
-      <workItem from="1705318892123" duration="4360000" />
+      <workItem from="1705318892123" duration="6514000" />
     </task>
     <servers />
   </component>

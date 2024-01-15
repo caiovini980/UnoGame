@@ -68,9 +68,31 @@ void UnoSystem::StartGame()
     // GAME LOOP
     _gameStateManager->ChangeGameStateTo(GameStates::InGame);
 
-    while (_isGameOver)
+    while (!_isGameOver)
     {
+        // clear the screen
+        _visualizationManager->ClearScreen();
         
+        // show players list
+        _turnManager->ShowPlayOrder();
+        
+        // get next player
+        PlayerBehaviour nextPlayer = _turnManager->GetNextPlayer();
+
+        // highlight the next player on players list
+        std::cout << "\nThe next player to play is: " << *nextPlayer.GetName() << "\n";
+        _visualizationManager->WaitForInput();
+        
+        // show card on top of deck
+        // show player's cards
+        // ask for input
+        // validate input
+        // validate rules
+        // execute input special action, if possible
+        // Play card on the toss pile
+        
+        // end turn
+        _turnManager->ExecuteTurn();
     }
 }
 

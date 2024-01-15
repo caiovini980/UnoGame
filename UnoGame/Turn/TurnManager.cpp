@@ -25,7 +25,7 @@ void TurnManager::RevertPlayOrder()
 
 PlayerBehaviour& TurnManager::GetNextPlayer()
 {
-    return _playOrder[_playIndex + 1];
+    return _playOrder[_playIndex];
 }
 
 void TurnManager::ShowPlayOrder()
@@ -36,4 +36,17 @@ void TurnManager::ShowPlayOrder()
     {
         std::cout << *_playOrder[i].GetName() << ", ";
     }
+}
+
+void TurnManager::ExecuteTurn()
+{
+    std::cout << "Ending turn...\n";
+    
+    if (_playIndex >= _playOrder.size() - 1)
+    {
+        _playIndex = 0;
+        return;
+    }
+    
+    _playIndex += 1;
 }
