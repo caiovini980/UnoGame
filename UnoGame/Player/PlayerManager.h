@@ -10,7 +10,7 @@ public:
     void Setup() override;
     void Finish() override;
     
-    const std::vector<PlayerBehaviour>& CreatePlayers(std::vector<std::string>& playerNames);
+    const std::vector<PlayerBehaviour>& CreatePlayers(std::vector<std::string>&& playerNames);
 
 private:
     std::vector<PlayerBehaviour> players;

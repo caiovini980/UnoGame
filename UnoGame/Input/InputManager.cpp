@@ -20,6 +20,15 @@ bool InputManager::IsValid(int choice, const GameStates& state)
             return true;
         }
     }
+
+    if (state == InSetup)
+    {
+        // accept from 2 to 10
+        if (choice > 1 && choice <= _maxInputForAmountOfPlayers)
+        {
+            return true;
+        }
+    }
     
     // check input for gameplay
     if (state == InGame)
