@@ -5,7 +5,6 @@
 #include "../ManagerBase.h"
 #include "../PlayerBehaviour.h"
 
-
 class TurnManager : public ManagerBase
 {
 public:
@@ -20,8 +19,9 @@ public:
     
 private:
     std::vector<PlayerBehaviour> _playOrder;
-
+    
     void JumpNextPlayer();
 
+    bool _isClockwise = true;
     int _playIndex = 0;
 };

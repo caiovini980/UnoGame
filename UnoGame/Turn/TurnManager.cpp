@@ -20,6 +20,8 @@ void TurnManager::SetInitialPlayOrder(const std::vector<PlayerBehaviour>& player
 
 void TurnManager::RevertPlayOrder()
 {
+    _isClockwise = !_isClockwise;
+    
     std::reverse(_playOrder.begin(), _playOrder.end());
 }
 
@@ -42,11 +44,24 @@ void TurnManager::ExecuteTurn()
 {
     std::cout << "Ending turn...\n";
     
-    if (_playIndex >= _playOrder.size() - 1)
+    if (_isClockwise)
     {
-        _playIndex = 0;
-        return;
+        if (_playIndex >= _playOrder.size() - 1)
+        {
+            _playIndex = 0;
+            return;
+        }
+        
+        _playIndex += 1;
     }
+    else
+    {
+        if (_playIndex <= 0)
+        {
+            _playIndex = _playOrder.size() - 1;
+            return;
+        }
     
-    _playIndex += 1;
+        _playIndex -= 1;
+    }
 }
