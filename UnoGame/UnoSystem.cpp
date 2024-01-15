@@ -65,8 +65,13 @@ void UnoSystem::StartGame()
     SetupBoard(names);
     names.clear();
     
-    // START GAME
+    // GAME LOOP
     _gameStateManager->ChangeGameStateTo(GameStates::InGame);
+
+    while (_isGameOver)
+    {
+        
+    }
 }
 
 void UnoSystem::SetupBoard(std::vector<std::string>& names)
@@ -86,6 +91,11 @@ void UnoSystem::SetupBoard(std::vector<std::string>& names)
             players[i].ReceiveCard(card);
         }
     }
+
+    _turnManager->SetInitialPlayOrder(players);
+    _turnManager->ShowPlayOrder();
+    _turnManager->RevertPlayOrder();
+    _turnManager->ShowPlayOrder();
 }
 
 void UnoSystem::GetPlayersInfo(std::vector<std::string>& outNames) const

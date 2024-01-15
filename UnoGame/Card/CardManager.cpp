@@ -4,6 +4,7 @@ void CardManager::Setup()
 {
     std::cout << "Setting up Card Manager\n";
     _drawDeck.reserve(_initialDeckSize);
+    _tossDeck.reserve(_initialDeckSize);
     CreateAllCards();
 }
 
