@@ -116,8 +116,6 @@ void UnoSystem::SetupBoard(std::vector<std::string>& names)
 
     _turnManager->SetInitialPlayOrder(players);
     _turnManager->ShowPlayOrder();
-    _turnManager->RevertPlayOrder();
-    _turnManager->ShowPlayOrder();
 }
 
 void UnoSystem::GetPlayersInfo(std::vector<std::string>& outNames) const
