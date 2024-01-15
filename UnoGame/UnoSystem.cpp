@@ -58,20 +58,47 @@ void UnoSystem::StartMenu()
 
 void UnoSystem::StartGame()
 {
-    std::cout << "Starting game...\n\n";
+    _gameStateManager->ChangeGameStateTo(GameStates::InSetup);
     
     std::vector<std::string> names;
     GetPlayersInfo(names);
     SetupBoard(names);
     names.clear();
     
-    // START GAME
+    // GAME LOOP
     _gameStateManager->ChangeGameStateTo(GameStates::InGame);
+
+    while (!_isGameOver)
+    {
+        // clear the screen
+        _visualizationManager->ClearScreen();
+        
+        // show players list
+        _turnManager->ShowPlayOrder();
+        
+        // get next player
+        PlayerBehaviour nextPlayer = _turnManager->GetNextPlayer();
+
+        // highlight the next player on players list
+        std::cout << "\nThe next player to play is: " << *nextPlayer.GetName() << "\n";
+        _visualizationManager->WaitForInput();
+        
+        // show card on top of deck
+        // show player's cards
+        // ask for input
+        // validate input
+        // validate rules
+        // execute input special action, if possible
+        // Play card on the toss pile
+        
+        // end turn
+        _turnManager->ExecuteTurn();
+    }
 }
 
 void UnoSystem::SetupBoard(std::vector<std::string>& names)
 {
-    std::vector<PlayerBehaviour> players = _playerManager->CreatePlayers(names);
+    std::vector<PlayerBehaviour> players = _playerManager->CreatePlayers(std::move(names));
     
     // ORGANIZE BOARD
     _visualizationManager->ClearScreen();
@@ -86,12 +113,27 @@ void UnoSystem::SetupBoard(std::vector<std::string>& names)
             players[i].ReceiveCard(card);
         }
     }
+
+    _turnManager->SetInitialPlayOrder(players);
+    _turnManager->ShowPlayOrder();
+    _turnManager->RevertPlayOrder();
+    _turnManager->ShowPlayOrder();
 }
 
 void UnoSystem::GetPlayersInfo(std::vector<std::string>& outNames) const
 {
+    _visualizationManager->ClearScreen();
+    
     const std::string QuestionNumberOfPlayers = "How many players are going to play? ";
     const int amountOfPlayers = _visualizationManager->AskForInput<int>(QuestionNumberOfPlayers);
+
+    if (!_inputManager->IsValid(amountOfPlayers, _gameStateManager->GetCurrentState()))
+    {
+        std::cout << "The amount of players must be between 2 and 10.\n";
+        _visualizationManager->WaitForInput();
+        GetPlayersInfo(outNames);
+        return;
+    }
 
     outNames = {};
     outNames.reserve(amountOfPlayers);
@@ -101,7 +143,7 @@ void UnoSystem::GetPlayersInfo(std::vector<std::string>& outNames) const
         std::string AskForAName = "Insert a name ";
         std::string name = _visualizationManager->AskForInput<std::string>(AskForAName);
 
-        outNames.push_back(name);
+        outNames.emplace_back(name);
     }
 }
 

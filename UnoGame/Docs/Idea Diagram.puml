@@ -26,6 +26,11 @@ package UnoGame
         Special Effect? - can be null
     }
     
+    class PlayerBehaviour
+    {
+        Cards on hand
+    }
+    
     'INTERFACES'
     
     'ENUMS'
@@ -80,10 +85,7 @@ package UnoGame
             Create/Setup Players
         }
         
-        class PlayerBehaviour
-        {
-            Cards on hand
-        }
+        
     }   
     
     package Rules
@@ -159,6 +161,7 @@ package UnoGame
     PlayerBehaviour --> CardBehaviour
     ActionManager --> CardBehaviour
     RulesManager --> CardBehaviour
+    TurnManager --> PlayerBehaviour
     VisualizationManager --> CardBehaviour
     InputManager --> GameStates
 }

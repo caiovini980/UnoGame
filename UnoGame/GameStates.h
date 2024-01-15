@@ -3,5 +3,6 @@
 enum GameStates
 {
     InMenu = 0,
-    InGame = 1
+    InSetup = 1,
+    InGame = 2
 };

@@ -13,5 +13,6 @@ public:
     int GetMaxInputForMenu() const;
 
 private:
-    int _maxInputForMenu = 3;    
+    int _maxInputForMenu = 3;
+    int _maxInputForAmountOfPlayers = 10;
 };

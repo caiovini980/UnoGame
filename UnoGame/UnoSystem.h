@@ -38,4 +38,6 @@ private:
     void StartGame();
     void ShowRules();
     void CloseGame();
+
+    bool _isGameOver = false;
 };

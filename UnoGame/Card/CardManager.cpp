@@ -3,6 +3,8 @@
 void CardManager::Setup()
 {
     std::cout << "Setting up Card Manager\n";
+    _drawDeck.reserve(_initialDeckSize);
+    _tossDeck.reserve(_initialDeckSize);
     CreateAllCards();
 }
 
@@ -68,7 +70,7 @@ void CardManager::CreatePlusCards(CardColors color)
 void CardManager::CreateCardsAndAddToDrawDeck(CardColors color, CardTypes type, int number, int amountToAdd)
 {
     CardBehaviour card{color, type, number, amountToAdd};
-    _drawDeck.push_back(card);
+    _drawDeck.emplace_back(card);
 }
 
 
