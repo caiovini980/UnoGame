@@ -164,6 +164,7 @@ package UnoGame
     TurnManager --> PlayerBehaviour
     VisualizationManager --> CardBehaviour
     InputManager --> GameStates
+    InputManager --> PlayerBehaviour
 }
 
 

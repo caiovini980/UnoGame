@@ -30,14 +30,13 @@ bool InputManager::IsValid(int choice, const GameStates& state)
         }
     }
     
-    // check input for gameplay
-    if (state == InGame)
-    {
-        // accept from -1 to n - 1 (number of cards on hand - 1)
-        return true;
-    }
-    
     return false;
+}
+
+bool InputManager::IsValid(int choice, PlayerBehaviour& player)
+{
+    // accept from -1 to n - 1 (number of cards on hand - 1)
+    return choice >= -1 && choice <= player.GetCards().size() - 1;
 }
 
 int InputManager::GetMaxInputForMenu() const { return _maxInputForMenu; }
