@@ -81,16 +81,28 @@ void UnoSystem::StartGame()
 
         // highlight the next player on players list
         std::cout << "\nThe next player to play is: " << *nextPlayer.GetName() << "\n";
-        _visualizationManager->WaitForInput();
         
         // show card on top of toss deck
+        // show player's cards
         CardBehaviour cardOnTopOfTossDeck = _cardManager->GetTopOfTossDeck();
         _visualizationManager->ShowBoard(cardOnTopOfTossDeck, nextPlayer.GetCards());
+        
+        // ask for input
+        const std::string QuestionCardIndex = "Select a card: ";
+        const int cardIndex = _visualizationManager->AskForInput<int>(QuestionCardIndex);
+
+        // validate input
+        if (!_inputManager->IsValid(cardIndex, nextPlayer))
+        {
+            std::cout << "Invalid input... Please select a valid one!\n";
+            _visualizationManager->WaitForInput();
+            continue;
+        }
+        
+        std::cout << "Input valid!\n";
         _visualizationManager->WaitForInput();
         
-        // show player's cards
-        // ask for input
-        // validate input
+        
         // validate rules
         // execute input special action, if possible
         // Play card on the toss pile
