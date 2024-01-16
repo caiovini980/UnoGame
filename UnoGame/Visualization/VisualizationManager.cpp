@@ -21,24 +21,57 @@ void VisualizationManager::WaitForInput()
     system("pause");
 }
 
-void VisualizationManager::ShowTable(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards)
+void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards)
 {
-    std::cout << "Card on the board\n";
-    ShowCard(cardOnTopOfTossDeck);
+    std::cout << "Card on the board: \n";
+    ChangeTextColorByCard(cardOnTopOfTossDeck);
+    WriteCardInfo(cardOnTopOfTossDeck);
+
+    std::cout << RESET_COLOR_CODE;
     std::cout << "\n---------------------\nCards on hand:\n";
 
+    // indexes
     for (int i = 0; i < playerCards.size(); i++)
     {
-        std::cout << "[" << i << "]\n";
-        ShowCard(playerCards[i]);
+        std::cout << RESET_COLOR_CODE;
+        std::cout << "[" << i << "]\t";
+        ChangeTextColorByCard(playerCards[i]);
+        WriteCardInfo(playerCards[i]);
+        std::cout << "\n";
     }
+    
+    std::cout << RESET_COLOR_CODE;
+    std::cout << "\n";
 }
 
-void VisualizationManager::ShowCard(const CardBehaviour& card) const
+void VisualizationManager::WriteCardInfo(const CardBehaviour& card)
 {
-    std::cout << "{\n"
-                 "\t" << "Color: " << CardColors[card.GetCardData().color] <<
-                 "\n\t" << "Type: " << CardTypes[card.GetCardData().type] <<
-                 "\n\t" << "Number: " << card.GetCardData().number <<
-                 "\n}\n";
+    if (card.GetCardData().type != Number)
+    {
+        std::cout << "[ " << CardTypes[card.GetCardData().type] << " ]";
+        return;
+    }
+    
+    std::cout << "[ " << card.GetCardData().number << " ]";
+}
+
+void VisualizationManager::ChangeTextColorByCard(const CardBehaviour& card) const
+{
+    switch (card.GetCardData().color) {
+    case Green:
+        std::cout << GREEN_COLOR_CODE;
+        break;
+        
+    case Yellow:
+        std::cout << YELLOW_COLOR_CODE;
+        break;
+        
+    case Blue:
+        std::cout << BLUE_COLOR_CODE;
+        break;
+        
+    case Red:
+        std::cout << RED_COLOR_CODE;
+        break;
+    }
 }

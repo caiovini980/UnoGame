@@ -85,7 +85,7 @@ void UnoSystem::StartGame()
         
         // show card on top of toss deck
         CardBehaviour cardOnTopOfTossDeck = _cardManager->GetTopOfTossDeck();
-        _visualizationManager->ShowTable(cardOnTopOfTossDeck, nextPlayer.GetCards());
+        _visualizationManager->ShowBoard(cardOnTopOfTossDeck, nextPlayer.GetCards());
         _visualizationManager->WaitForInput();
         
         // show player's cards
