@@ -14,6 +14,11 @@ void PlayerBehaviour::ReceiveCard(CardBehaviour card)
     // std::cout << "amount of cards on " << playerName << "'s hand: " << cardsOnHand.size() << "\n"; 
 }
 
+CardBehaviour& PlayerBehaviour::GetSelectedCard(int cardOnHandID)
+{
+    return cardsOnHand[cardOnHandID];
+}
+
 const std::vector<CardBehaviour>& PlayerBehaviour::GetCards()
 {
     return cardsOnHand;

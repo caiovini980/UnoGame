@@ -100,13 +100,24 @@ void UnoSystem::StartGame()
         }
         
         std::cout << "Input valid!\n";
-        _visualizationManager->WaitForInput();
         
-        
-        // validate rules
-        // execute input special action, if possible
         // Play card on the toss pile
+        CardBehaviour cardPlayed = nextPlayer.GetSelectedCard(cardIndex);
+
+        // check played card color with card on top of toss deck
+        if (!_rulesManager->CheckCardColor(cardPlayed, cardOnTopOfTossDeck))
+        {
+            std::cout << "Invalid play... Colors must match!\n";
+            _visualizationManager->WaitForInput();
+            continue;
+        }
         
+        // execute input special action, if possible
+
+        // put played card to top of toss deck
+        _cardManager->AddCardToTopTossDeck(cardPlayed);
+        
+        _visualizationManager->WaitForInput();
         // end turn
         _turnManager->ExecuteTurn();
     }

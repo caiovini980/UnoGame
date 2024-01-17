@@ -20,6 +20,7 @@ public:
     
     void ShuffleCards();
     void RemoveCardFromDrawDeck();
+    void AddCardToTopTossDeck(const CardBehaviour& card);
     
 private:
     std::vector<CardBehaviour> _drawDeck;

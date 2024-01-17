@@ -11,7 +11,7 @@ public:
     ~PlayerBehaviour() = default;
     
     void ReceiveCard(CardBehaviour card);
-    CardBehaviour* PlayCard(int cardOnHandID);
+    CardBehaviour& GetSelectedCard(int cardOnHandID);
     
     const std::vector<CardBehaviour>& GetCards();
     std::string* GetName();
