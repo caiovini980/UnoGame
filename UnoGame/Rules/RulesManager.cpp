@@ -8,3 +8,8 @@ void RulesManager::Setup()
 void RulesManager::Finish()
 {
 }
+
+bool RulesManager::CheckCardColor(const CardBehaviour& cardPlayed, const CardBehaviour& cardOnTop)
+{
+    return cardPlayed.GetCardData().color == cardOnTop.GetCardData().color;
+}

@@ -92,6 +92,11 @@ CardBehaviour CardManager::PopNextCardFromDrawDeck()
     return selectedCard;
 }
 
+void CardManager::AddCardToTopTossDeck(const CardBehaviour& card)
+{
+    _tossDeck.push(card);
+}
+
 CardBehaviour& CardManager::GetTopOfTossDeck()
 {
     if (_tossDeck.empty())
