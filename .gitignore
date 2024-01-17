@@ -32,7 +32,7 @@
 *.app
 
 # Builds
-/UnoGame/x64
+/UnoGame/x64/*
 
 # Rider files
-/UnoGame/.idea/
+/UnoGame/.idea/*
