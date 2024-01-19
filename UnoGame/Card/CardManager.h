@@ -27,7 +27,7 @@ private:
     std::stack<CardBehaviour> _tossDeck;
 
     int _initialDeckSize = 104;
-    int _initialHandSize = 7;
+    int _initialHandSize = 7; // 7
     
     int _amountOfNumberCardsPerColor = 20;
     int _amountOfReverseCardsPerColor = 2;
