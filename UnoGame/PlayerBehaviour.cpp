@@ -13,6 +13,11 @@ void PlayerBehaviour::ReceiveCard(CardBehaviour card)
     cardsOnHand.emplace_back(card);
 }
 
+void PlayerBehaviour::RemoveCardFromHandByIndex(int cardIndex)
+{
+    cardsOnHand.erase(cardsOnHand.begin() + cardIndex);
+}
+
 CardBehaviour& PlayerBehaviour::GetSelectedCard(int cardOnHandID)
 {
     return cardsOnHand[cardOnHandID];

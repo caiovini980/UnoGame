@@ -77,7 +77,7 @@ void UnoSystem::StartGame()
         _turnManager->ShowPlayOrder();
         
         // get next player
-        PlayerBehaviour nextPlayer = _turnManager->GetNextPlayer();
+        PlayerBehaviour& nextPlayer = _turnManager->GetNextPlayer();
 
         // highlight the next player on players list
         std::cout << "\nThe next player to play is: " << *nextPlayer.GetName() << "\n";
@@ -105,6 +105,9 @@ void UnoSystem::StartGame()
         // check played card color with card on top of toss deck
         if (!FollowBasicUNORules(cardOnTopOfTossDeck, cardPlayed)) continue;
         
+        // remove card from player's hand
+        nextPlayer.RemoveCardFromHandByIndex(cardIndex);
+        
         // execute turn
         _turnManager->ExecuteTurn(1);
 
@@ -116,8 +119,6 @@ void UnoSystem::StartGame()
         
         // put played card to top of toss deck
         _cardManager->AddCardToTopTossDeck(cardPlayed);
-        
-        // remove card from player's hand
         
         _visualizationManager->WaitForInput();
     }
