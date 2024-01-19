@@ -29,7 +29,6 @@ private:
     int _initialDeckSize = 104;
     int _initialHandSize = 7; // 7
     
-    int _amountOfNumberCardsPerColor = 20;
     int _amountOfReverseCardsPerColor = 2;
     int _amountOfPlusTwoCardsPerColor = 2;
     int _amountOfBlockCardsPerColor = 2;
