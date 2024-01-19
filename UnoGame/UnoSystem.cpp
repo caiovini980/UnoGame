@@ -99,28 +99,66 @@ void UnoSystem::StartGame()
             continue;
         }
         
-        std::cout << "Input valid!\n";
-        
         // Play card on the toss pile
         CardBehaviour cardPlayed = nextPlayer.GetSelectedCard(cardIndex);
 
         // check played card color with card on top of toss deck
-        if (!_rulesManager->CheckCardColor(cardPlayed, cardOnTopOfTossDeck))
+        if (!FollowBasicUNORules(cardOnTopOfTossDeck, cardPlayed)) continue;
+        
+        // execute turn
+        _turnManager->ExecuteTurn(1);
+
+        // execute special action, if card played isn't a number card
+        if (cardPlayed.GetCardData().type != CardTypes::Number)
         {
-            std::cout << "Invalid play... Colors must match!\n";
-            _visualizationManager->WaitForInput();
-            continue;
+            ExecuteSpecialAction(cardPlayed);
         }
         
-        // execute input special action, if possible
-
         // put played card to top of toss deck
         _cardManager->AddCardToTopTossDeck(cardPlayed);
         
+        // remove card from player's hand
+        
         _visualizationManager->WaitForInput();
-        // end turn
-        _turnManager->ExecuteTurn();
     }
+}
+
+void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed)
+{
+    if (cardPlayed.GetCardData().type == CardTypes::Reverse)
+    {
+        _turnManager->RevertPlayOrder();
+    }
+        
+    // add +2
+    else if (cardPlayed.GetCardData().type == CardTypes::Plus)
+    {
+        
+    }
+
+    // block
+    else if (cardPlayed.GetCardData().type == CardTypes::Block)
+    {
+        _turnManager->ExecuteTurn(2); 
+    }
+}
+
+bool UnoSystem::FollowBasicUNORules(const CardBehaviour& cardOnTopOfTossDeck, const CardBehaviour& cardPlayed)
+{
+    if (_rulesManager->CheckCardColor(cardPlayed, cardOnTopOfTossDeck))
+    {
+        return true;
+    }
+    
+    if (_rulesManager->CheckCardNumber(cardPlayed, cardOnTopOfTossDeck) &&
+        _rulesManager->CheckCardType(cardPlayed, cardOnTopOfTossDeck))
+    {
+        return true;  
+    }
+    
+    std::cout << "Invalid play... Colors must match!\n";
+    _visualizationManager->WaitForInput();
+    return false;
 }
 
 void UnoSystem::SetupBoard(std::vector<std::string>& names)
