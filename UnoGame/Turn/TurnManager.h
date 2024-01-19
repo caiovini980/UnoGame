@@ -13,7 +13,7 @@ public:
     void SetInitialPlayOrder(const std::vector<PlayerBehaviour>& players);
     void RevertPlayOrder();
     void ShowPlayOrder(); // TEST
-    void ExecuteTurn();
+    void ExecuteTurn(int addToTurnIndex);
     
     PlayerBehaviour& GetNextPlayer();
     

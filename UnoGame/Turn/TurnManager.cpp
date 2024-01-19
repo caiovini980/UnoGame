@@ -40,7 +40,7 @@ void TurnManager::ShowPlayOrder()
     }
 }
 
-void TurnManager::ExecuteTurn()
+void TurnManager::ExecuteTurn(int addToTurnIndex)
 {
     std::cout << "Ending turn...\n";
     
@@ -52,7 +52,7 @@ void TurnManager::ExecuteTurn()
             return;
         }
         
-        _playIndex += 1;
+        _playIndex += addToTurnIndex;
     }
     else
     {
@@ -62,6 +62,6 @@ void TurnManager::ExecuteTurn()
             return;
         }
     
-        _playIndex -= 1;
+        _playIndex -= addToTurnIndex;
     }
 }
