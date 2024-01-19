@@ -11,7 +11,6 @@ PlayerBehaviour::PlayerBehaviour(std::string&& name)
 void PlayerBehaviour::ReceiveCard(CardBehaviour card)
 {
     cardsOnHand.emplace_back(card);
-    // std::cout << "amount of cards on " << playerName << "'s hand: " << cardsOnHand.size() << "\n"; 
 }
 
 CardBehaviour& PlayerBehaviour::GetSelectedCard(int cardOnHandID)
