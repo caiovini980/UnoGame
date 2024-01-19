@@ -139,7 +139,7 @@ void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed)
     // block
     else if (cardPlayed.GetCardData().type == CardTypes::Block)
     {
-        _turnManager->ExecuteTurn(2); 
+        _turnManager->ExecuteTurn(1); 
     }
 }
 
