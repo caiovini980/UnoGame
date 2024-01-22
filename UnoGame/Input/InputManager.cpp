@@ -36,7 +36,8 @@ bool InputManager::IsValid(int choice, const GameStates& state)
 bool InputManager::IsValid(int choice, PlayerBehaviour& player)
 {
     // accept from -1 to n - 1 (number of cards on hand - 1)
-    return choice >= -1 && choice <= player.GetCards().size() - 1;
+    return (choice >= -1 && choice <= player.GetCards().size() - 1)
+    || choice == _inputForDrawCard;
 }
 
 int InputManager::GetMaxInputForMenu() const { return _maxInputForMenu; }
