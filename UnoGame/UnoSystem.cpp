@@ -98,6 +98,15 @@ void UnoSystem::StartGame()
             _visualizationManager->WaitForInput();
             continue;
         }
+
+        // check if player wants to buy a card from draw deck
+        //if yes, buy a card
+        if (cardIndex < 0)
+        {
+            const CardBehaviour newCard = _cardManager->PopNextCardFromDrawDeck();
+            nextPlayer.ReceiveCard(newCard);
+            continue;
+        }
         
         // Play card on the toss pile
         CardBehaviour cardPlayed = nextPlayer.GetSelectedCard(cardIndex);

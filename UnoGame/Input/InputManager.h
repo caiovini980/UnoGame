@@ -16,5 +16,6 @@ public:
 
 private:
     int _maxInputForMenu = 3;
+    int _inputForDrawCard = -1;
     int _maxInputForAmountOfPlayers = 10;
 };
