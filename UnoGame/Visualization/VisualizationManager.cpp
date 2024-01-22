@@ -30,6 +30,7 @@ void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, c
     std::cout << RESET_COLOR_CODE;
     std::cout << "\n---------------------\nCards on hand:\n";
 
+    std::cout << "[ -1 ]\tDRAW CARD\n";
     // indexes
     for (int i = 0; i < playerCards.size(); i++)
     {
