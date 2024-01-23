@@ -23,3 +23,13 @@ bool RulesManager::CheckCardNumber(const CardBehaviour& cardPlayed, const CardBe
 {
     return cardPlayed.GetCardData().number == cardOnTop.GetCardData().number;
 }
+
+bool RulesManager::CheckUNOShoutRule(const std::vector<CardBehaviour>& playerCards)
+{
+    return static_cast<int>(playerCards.size()) == _amountOfCardsForUnoShoutRule;
+}
+
+int RulesManager::GetAmountOfCardsToDrawWhenViolatesShoutUnoRule() const
+{
+    return _amountOfCardsToDrawIfDontShoutUno;
+}

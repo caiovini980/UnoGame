@@ -21,7 +21,7 @@ void VisualizationManager::WaitForInput()
     system("pause");
 }
 
-void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards)
+void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards, bool canShoutUno)
 {
     std::cout << "Card on the board: \n";
     ChangeTextColorByCard(cardOnTopOfTossDeck);
@@ -30,6 +30,12 @@ void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, c
     std::cout << RESET_COLOR_CODE;
     std::cout << "\n---------------------\nCards on hand:\n";
 
+    // show Uno option if player have 2 cards on hand
+    if (canShoutUno)
+    {
+        std::cout << "[ -2 ]\tSHOUT UNO\n";
+    }
+    
     std::cout << "[ -1 ]\tDRAW CARD\n";
     // indexes
     for (int i = 0; i < playerCards.size(); i++)

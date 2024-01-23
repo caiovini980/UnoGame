@@ -34,6 +34,7 @@ private:
     void SetupBoard(std::vector<std::string>& names);
     
     void StartMenu();
+    void PlayerDrawCard(PlayerBehaviour& nextPlayer);
     bool FollowBasicUNORules(const CardBehaviour& cardOnTopOfTossDeck, const CardBehaviour& cardPlayed);
     void ExecuteSpecialAction(const CardBehaviour& cardPlayed);
     void GetPlayersInfo(std::vector<std::string>& outNames) const;
