@@ -56,6 +56,12 @@ void UnoSystem::StartMenu()
     }
 }
 
+void UnoSystem::PlayerDrawCard(PlayerBehaviour& nextPlayer)
+{
+    const CardBehaviour newCard = _cardManager->PopNextCardFromDrawDeck();
+    nextPlayer.ReceiveCard(newCard);
+}
+
 void UnoSystem::StartGame()
 {
     _gameStateManager->ChangeGameStateTo(GameStates::InSetup);
@@ -68,67 +74,71 @@ void UnoSystem::StartGame()
     // GAME LOOP
     _gameStateManager->ChangeGameStateTo(GameStates::InGame);
 
+    bool shoutedUNO = false;
+    
     while (!_isGameOver)
     {
-        // clear the screen
+        // screen setup
         _visualizationManager->ClearScreen();
-        
-        // show players list
         _turnManager->ShowPlayOrder();
-        
-        // get next player
-        PlayerBehaviour& nextPlayer = _turnManager->GetNextPlayer();
 
-        // highlight the next player on players list
-        std::cout << "\nThe next player to play is: " << *nextPlayer.GetName() << "\n";
-        
-        // show card on top of toss deck
-        // show player's cards
+        // variables
+        PlayerBehaviour& playerOfTheRound = _turnManager->GetNextPlayer();
         CardBehaviour cardOnTopOfTossDeck = _cardManager->GetTopOfTossDeck();
-        _visualizationManager->ShowBoard(cardOnTopOfTossDeck, nextPlayer.GetCards());
-        
-        // ask for input
         const std::string QuestionCardIndex = "Select a card: ";
-        const int cardIndex = _visualizationManager->AskForInput<int>(QuestionCardIndex);
+        const bool mustShoutUnoThisRound = _rulesManager->CheckUNOShoutRule(playerOfTheRound.GetCards());
+        
+        std::cout << "\nThe next player to play is: " << *playerOfTheRound.GetName() << "\n";
+        _visualizationManager->ShowBoard(cardOnTopOfTossDeck, playerOfTheRound.GetCards(), mustShoutUnoThisRound);
 
-        // validate input
-        if (!_inputManager->IsValid(cardIndex, nextPlayer))
+        // get input
+        const int cardIndex = _visualizationManager->AskForInput<int>(QuestionCardIndex);
+        if (!_inputManager->IsValid(cardIndex, playerOfTheRound, mustShoutUnoThisRound))
         {
             std::cout << "Invalid input... Please select a valid one!\n";
             _visualizationManager->WaitForInput();
             continue;
         }
 
-        // check if player wants to buy a card from draw deck
-        //if yes, buy a card
-        if (cardIndex < 0)
+        // check input
+        if (cardIndex == _inputManager->GetDrawCardInput())
         {
-            const CardBehaviour newCard = _cardManager->PopNextCardFromDrawDeck();
-            nextPlayer.ReceiveCard(newCard);
+            PlayerDrawCard(playerOfTheRound);
+            continue;
+        }
+            
+        if (cardIndex == _inputManager->GetShoutUNOInput())
+        {
+            shoutedUNO = true;
             continue;
         }
         
-        // Play card on the toss pile
-        CardBehaviour cardPlayed = nextPlayer.GetSelectedCard(cardIndex);
-
-        // check played card color with card on top of toss deck
+        CardBehaviour cardPlayed = playerOfTheRound.GetSelectedCard(cardIndex);
         if (!FollowBasicUNORules(cardOnTopOfTossDeck, cardPlayed)) continue;
         
-        // remove card from player's hand
-        nextPlayer.RemoveCardFromHandByIndex(cardIndex);
-        
-        // execute turn
+        playerOfTheRound.RemoveCardFromHandByIndex(cardIndex);
+        _cardManager->AddCardToTopTossDeck(cardPlayed);
         _turnManager->ExecuteTurn(1);
-
-        // execute special action, if card played isn't a number card
+        
         if (cardPlayed.GetCardData().type != CardTypes::Number)
         {
             ExecuteSpecialAction(cardPlayed);
         }
         
-        // put played card to top of toss deck
-        _cardManager->AddCardToTopTossDeck(cardPlayed);
-        
+
+        // check UNO shout rule
+        if (mustShoutUnoThisRound && !shoutedUNO)
+        {
+            const int amountToDraw = _rulesManager->GetAmountOfCardsToDrawWhenViolatesShoutUnoRule();
+            std::cout << "\nMust shout 'UNO' when with 2 cards on hand. Bought 2 cards!\n";
+            
+            for (int i = 0; i < amountToDraw; i++)
+            {
+                PlayerDrawCard(playerOfTheRound);
+            }
+        }
+
+        shoutedUNO = false;
         _visualizationManager->WaitForInput();
     }
 }

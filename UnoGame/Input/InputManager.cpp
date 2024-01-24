@@ -33,12 +33,20 @@ bool InputManager::IsValid(int choice, const GameStates& state)
     return false;
 }
 
-bool InputManager::IsValid(int choice, PlayerBehaviour& player)
+bool InputManager::IsValid(int choice, PlayerBehaviour& player, bool canShoutUno) const
 {
     // accept from -1 to n - 1 (number of cards on hand - 1)
-    return (choice >= -1 && choice <= player.GetCards().size() - 1)
-    || choice == _inputForDrawCard;
+    const int amountOfCardsOnPlayerHand = static_cast<int>(player.GetCards().size());
+
+    return
+        (choice >= 0 && choice <= amountOfCardsOnPlayerHand - 1) ||
+        (choice == _inputForDrawCard) ||
+        (canShoutUno && choice == _inputForUnoShout);
 }
 
 int InputManager::GetMaxInputForMenu() const { return _maxInputForMenu; }
+
+int InputManager::GetDrawCardInput() const{ return _inputForDrawCard; }
+
+int InputManager::GetShoutUNOInput() const { return _inputForUnoShout; }
 
