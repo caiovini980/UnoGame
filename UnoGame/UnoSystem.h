@@ -35,8 +35,10 @@ private:
     
     void StartMenu();
     void PlayerDrawCard(PlayerBehaviour& nextPlayer);
+    void CheckWhenHaveAPlusCardOnTopOfTossDeck(int& amountToDraw, PlayerBehaviour& playerOfTheRound, const CardBehaviour& cardOnTopOfTossDeck);
+    void BuyDesiredAmountOfCards(int amountToDraw, PlayerBehaviour& playerOfTheRound);
     bool FollowBasicUNORules(const CardBehaviour& cardOnTopOfTossDeck, const CardBehaviour& cardPlayed);
-    void ExecuteSpecialAction(const CardBehaviour& cardPlayed);
+    void ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAmountToDraw);
     void GetPlayersInfo(std::vector<std::string>& outNames) const;
     void StartGame();
     void ShowRules();

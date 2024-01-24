@@ -29,6 +29,21 @@ bool RulesManager::CheckUNOShoutRule(const std::vector<CardBehaviour>& playerCar
     return static_cast<int>(playerCards.size()) == _amountOfCardsForUnoShoutRule;
 }
 
+bool RulesManager::CheckPlusRule(const CardBehaviour& cardOnTop, const std::vector<CardBehaviour>& playerCards)
+{
+    bool havePlusCard = false;
+    
+    for (CardBehaviour card : playerCards)
+    {
+        if (card.GetCardData().type == CardTypes::PlusTwo)
+        {
+            havePlusCard = true;
+        }
+    }
+
+    return havePlusCard && (cardOnTop.GetCardData().type == CardTypes::PlusTwo);
+}
+
 int RulesManager::GetAmountOfCardsToDrawWhenViolatesShoutUnoRule() const
 {
     return _amountOfCardsToDrawIfDontShoutUno;

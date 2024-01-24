@@ -51,6 +51,11 @@ void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, c
     std::cout << "\n";
 }
 
+void VisualizationManager::ShowWarningText(const std::string& text)
+{
+    std::cout << YELLOW_COLOR_CODE << text << RESET_COLOR_CODE;
+}
+
 void VisualizationManager::WriteCardInfo(const CardBehaviour& card)
 {
     if (card.GetCardData().type != Number)

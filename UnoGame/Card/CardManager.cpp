@@ -24,8 +24,8 @@ void CardManager::CreateAllCards()
 void CardManager::CreateCardsFromColor(CardColors color)
 {
     CreateNumberCards(color);
-    CreateReverseCards(color);
-    CreateBlockCards(color);
+    // CreateReverseCards(color);
+    // CreateBlockCards(color);
     CreatePlusCards(color);
 }
 
@@ -62,7 +62,7 @@ void CardManager::CreatePlusCards(CardColors color)
 {
     for (int i = 0; i < _amountOfPlusTwoCardsPerColor; i++)
     {
-        CreateCardsAndAddToDrawDeck(color, CardTypes::Plus, -1, 2);
+        CreateCardsAndAddToDrawDeck(color, CardTypes::PlusTwo, -1, 2);
     }
 }
 

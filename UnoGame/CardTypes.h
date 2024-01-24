@@ -4,6 +4,6 @@ enum CardTypes
 {
     Number,
     Block,
-    Plus,
+    PlusTwo,
     Reverse
 };
