@@ -24,8 +24,8 @@ void CardManager::CreateAllCards()
 void CardManager::CreateCardsFromColor(CardColors color)
 {
     CreateNumberCards(color);
-    // CreateReverseCards(color);
-    // CreateBlockCards(color);
+    CreateReverseCards(color);
+    CreateBlockCards(color);
     CreatePlusCards(color);
 }
 
