@@ -38,15 +38,10 @@ bool InputManager::IsValid(int choice, PlayerBehaviour& player, bool canShoutUno
     // accept from -1 to n - 1 (number of cards on hand - 1)
     const int amountOfCardsOnPlayerHand = static_cast<int>(player.GetCards().size());
 
-    if (canShoutUno)
-    {
-        return (choice >= 0 && choice <= amountOfCardsOnPlayerHand - 1)
-                || choice == _inputForDrawCard
-                || choice == _inputForUnoShout;
-    }
-
-    return (choice >= 0 && choice <= amountOfCardsOnPlayerHand - 1)
-    || choice == _inputForDrawCard;
+    return
+        (choice >= 0 && choice <= amountOfCardsOnPlayerHand - 1) ||
+        (choice == _inputForDrawCard) ||
+        (canShoutUno && choice == _inputForUnoShout);
 }
 
 int InputManager::GetMaxInputForMenu() const { return _maxInputForMenu; }
