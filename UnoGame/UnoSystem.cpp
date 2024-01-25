@@ -20,7 +20,9 @@ void UnoSystem::SetupManagers() const
 
 void UnoSystem::StartMenu()
 {
+    _gameStateManager->ChangeGameStateTo(GameStates::InMenu);
     _visualizationManager->ClearScreen();
+    
     std::cout << "Welcome to the UNO game!\nPlease select an option:\n\n";
     std::cout << "1 - Start Game\n";
     std::cout << "2 - Rules\n";
@@ -62,11 +64,15 @@ void UnoSystem::StartGame()
     
     std::vector<std::string> names;
     GetPlayersInfo(names);
-    SetupBoard(names);
+
+    std::vector<PlayerBehaviour> players = _playerManager->CreatePlayers(std::move(names));
+    SetupBoard(players);
+    
     names.clear();
     
     // GAME LOOP
     _gameStateManager->ChangeGameStateTo(GameStates::InGame);
+    _isGameOver = false;
 
     bool shoutedUNO = false;
     int amountToDraw = 0;
@@ -149,7 +155,19 @@ void UnoSystem::StartGame()
 
         shoutedUNO = false;
         _visualizationManager->WaitForInput();
+
+        if(_rulesManager->CheckGameOver(playerOfTheRound.GetCards()))
+        {
+            _isGameOver = true;
+            _visualizationManager->ClearScreen();
+            _visualizationManager->ShowWinner(*playerOfTheRound.GetName());
+            _visualizationManager->WaitForInput();
+        }
     }
+
+    std::cout << "Returning to main menu. ";
+    _visualizationManager->WaitForInput();
+    StartMenu();
 }
 
 void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAmountToDraw)
@@ -220,16 +238,13 @@ bool UnoSystem::FollowBasicUNORules(const CardBehaviour& cardOnTopOfTossDeck, co
     return false;
 }
 
-void UnoSystem::SetupBoard(std::vector<std::string>& names)
+void UnoSystem::SetupBoard(std::vector<PlayerBehaviour>& players) const
 {
-    std::vector<PlayerBehaviour> players = _playerManager->CreatePlayers(std::move(names));
-    
-    // ORGANIZE BOARD
     _visualizationManager->ClearScreen();
     _cardManager->ShuffleCards();
     
     const int initialHandSize = _cardManager->GetInitialHandSize();
-    for (int i = 0; i < players.size(); i++)
+    for (int i = 0; i < static_cast<int>(players.size()); i++)
     {
         for (int j = 0; j < initialHandSize; j++)
         {

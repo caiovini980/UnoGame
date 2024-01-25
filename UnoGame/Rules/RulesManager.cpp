@@ -44,6 +44,11 @@ bool RulesManager::CheckPlusRule(const CardBehaviour& cardOnTop, const std::vect
     return havePlusCard && (cardOnTop.GetCardData().type == CardTypes::PlusTwo);
 }
 
+bool RulesManager::CheckGameOver(const std::vector<CardBehaviour>& playerCards)
+{
+    return static_cast<int>(playerCards.size()) == 0;
+}
+
 int RulesManager::GetAmountOfCardsToDrawWhenViolatesShoutUnoRule() const
 {
     return _amountOfCardsToDrawIfDontShoutUno;

@@ -31,7 +31,7 @@ private:
     
     void SetupManagers() const;
 
-    void SetupBoard(std::vector<std::string>& names);
+    void SetupBoard(std::vector<PlayerBehaviour>& players) const;
     
     void StartMenu();
     void PlayerDrawCard(PlayerBehaviour& nextPlayer);

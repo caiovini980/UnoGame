@@ -1,9 +1,9 @@
 ﻿#pragma once
 #include <vector>
-#include <Windows.h>
 
 #include "../ManagerBase.h"
 #include "../CardBehaviour.h"
+#include "../PlayerBehaviour.h"
 
 class VisualizationManager : public ManagerBase
 {
@@ -13,8 +13,9 @@ public:
 
     void ClearScreen();
     void WaitForInput();
-    void ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards, bool canShoutUno);
-    void ShowWarningText(const std::string& text);
+    void ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards, bool canShoutUno) const;
+    void ShowWarningText(const std::string& text) const;
+    void ShowWinner(const std::string& winnerName);
     
     
     // TEMPLATES
@@ -47,5 +48,5 @@ private:
     const char* TAB_BETWEEN_CARDS = "\t\t\t";
     
     void ChangeTextColorByCard(const CardBehaviour& card) const;
-    void WriteCardInfo(const CardBehaviour& card);
+    void WriteCardInfo(const CardBehaviour& card) const;
 };
