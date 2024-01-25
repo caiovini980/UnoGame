@@ -33,7 +33,7 @@ bool RulesManager::CheckPlusRule(const CardBehaviour& cardOnTop, const std::vect
 {
     bool havePlusCard = false;
     
-    for (CardBehaviour card : playerCards)
+    for (const CardBehaviour& card : playerCards)
     {
         if (card.GetCardData().type == CardTypes::PlusTwo)
         {
