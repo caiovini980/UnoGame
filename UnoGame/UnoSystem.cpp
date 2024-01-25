@@ -8,7 +8,6 @@ UnoSystem::UnoSystem()
 
 void UnoSystem::SetupManagers() const
 {
-    _actionManager->Setup();
     _cardManager->Setup();
     _gameStateManager->Setup();
     _inputManager->Setup();

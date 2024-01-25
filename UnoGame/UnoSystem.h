@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-#include "Action/ActionManager.h"
 #include "Card/CardManager.h"
 #include "Input/InputManager.h"
 #include "Player/PlayerManager.h"
@@ -20,7 +19,6 @@ public:
     ~UnoSystem() = default;
 
 private:
-    std::unique_ptr<ActionManager> _actionManager = std::make_unique<ActionManager>();
     std::unique_ptr<CardManager> _cardManager = std::make_unique<CardManager>();
     std::unique_ptr<InputManager> _inputManager = std::make_unique<InputManager>();
     std::unique_ptr<PlayerManager> _playerManager = std::make_unique<PlayerManager>();

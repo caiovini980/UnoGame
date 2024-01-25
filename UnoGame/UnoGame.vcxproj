@@ -154,7 +154,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Action\ActionManager.cpp" />
     <ClCompile Include="CardBehaviour.cpp" />
     <ClCompile Include="Card\CardManager.cpp" />
     <ClCompile Include="GameState\GameStateManager.cpp" />
@@ -171,7 +170,6 @@
     <Content Include="Docs\Idea Diagram.puml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action\ActionManager.h" />
     <ClInclude Include="CardBehaviour.h" />
     <ClInclude Include="CardColors.h" />
     <ClInclude Include="CardTypes.h" />
