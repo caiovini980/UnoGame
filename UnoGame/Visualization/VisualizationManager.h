@@ -14,6 +14,8 @@ public:
     void ClearScreen();
     void WaitForInput();
     void ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards, bool canShoutUno);
+    void ShowWarningText(const std::string& text);
+    
     
     // TEMPLATES
     template <class T> T AskForInput(const std::string& question)
