@@ -15,6 +15,7 @@ public:
     bool CheckCardNumber(const CardBehaviour& cardPlayed, const CardBehaviour& cardOnTop);
     bool CheckUNOShoutRule(const std::vector<CardBehaviour>& playerCards);
     bool CheckPlusRule(const CardBehaviour& cardOnTop, const std::vector<CardBehaviour>& playerCards);
+    bool CheckGameOver(const std::vector<CardBehaviour>& playerCards);
 
     int GetAmountOfCardsToDrawWhenViolatesShoutUnoRule() const;
 

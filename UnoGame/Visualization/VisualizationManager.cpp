@@ -21,7 +21,7 @@ void VisualizationManager::WaitForInput()
     system("pause");
 }
 
-void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards, bool canShoutUno)
+void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, const std::vector<CardBehaviour>& playerCards, bool canShoutUno) const
 {
     std::cout << "Card on the board: \n";
     ChangeTextColorByCard(cardOnTopOfTossDeck);
@@ -38,7 +38,7 @@ void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, c
     
     std::cout << "[ -1 ]\tDRAW CARD\n";
     // indexes
-    for (int i = 0; i < playerCards.size(); i++)
+    for (int i = 0; i < static_cast<int>(playerCards.size()); i++)
     {
         std::cout << RESET_COLOR_CODE;
         std::cout << "[" << i << "]\t";
@@ -51,12 +51,17 @@ void VisualizationManager::ShowBoard(const CardBehaviour& cardOnTopOfTossDeck, c
     std::cout << "\n";
 }
 
-void VisualizationManager::ShowWarningText(const std::string& text)
+void VisualizationManager::ShowWarningText(const std::string& text) const
 {
     std::cout << YELLOW_COLOR_CODE << text << RESET_COLOR_CODE;
 }
 
-void VisualizationManager::WriteCardInfo(const CardBehaviour& card)
+void VisualizationManager::ShowWinner(const std::string& winnerName)
+{
+    std::cout << GREEN_COLOR_CODE << winnerName << "WON THE MATCH!\n" << RESET_COLOR_CODE;
+}
+
+void VisualizationManager::WriteCardInfo(const CardBehaviour& card) const
 {
     if (card.GetCardData().type != Number)
     {

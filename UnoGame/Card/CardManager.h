@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <vector>
 #include <stack>
-#include <algorithm>
 #include <random>
 
 #include "../CardBehaviour.h"
