@@ -87,6 +87,17 @@ void CardManager::RemoveCardFromDrawDeck()
 
 CardBehaviour CardManager::PopNextCardFromDrawDeck()
 {
+    if (static_cast<int>(_drawDeck.size()) <= 0)
+    {
+        while (!_tossDeck.empty())
+        {
+            _drawDeck.emplace_back(_tossDeck.top());
+            _tossDeck.pop();
+        }
+        
+        ShuffleCards();
+    }
+    
     const CardBehaviour selectedCard = _drawDeck.back();
     _drawDeck.pop_back();
     return selectedCard;
