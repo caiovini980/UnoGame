@@ -26,6 +26,11 @@ package UnoGame
         Special Effect? - can be null
     }
     
+    class PlayerBehaviour
+    {
+        Cards on hand
+    }
+    
     'INTERFACES'
     
     'ENUMS'
@@ -63,16 +68,6 @@ package UnoGame
         }
     }
     
-    package Action
-    {
-        class ActionManager
-        {
-            Draw card
-            Play card
-            Pass turn
-        }
-    }
-    
     package Player
     {
         class PlayerManager
@@ -80,10 +75,7 @@ package UnoGame
             Create/Setup Players
         }
         
-        class PlayerBehaviour
-        {
-            Cards on hand
-        }
+        
     }   
     
     package Rules
@@ -132,7 +124,6 @@ package UnoGame
     GameStateManager --|> ManagerBase
     CardManager --|> ManagerBase
     TurnManager --|> ManagerBase
-    ActionManager --|> ManagerBase
     InputManager --|> ManagerBase
     PlayerManager --|> ManagerBase
     RulesManager --|> ManagerBase
@@ -142,7 +133,6 @@ package UnoGame
     UnoSystem --> GameStateManager
     UnoSystem --> CardManager
     UnoSystem --> TurnManager
-    UnoSystem --> ActionManager
     UnoSystem --> InputManager
     UnoSystem --> PlayerManager
     UnoSystem --> RulesManager
@@ -157,10 +147,12 @@ package UnoGame
     CardManager --> CardBehaviour
     PlayerManager --> PlayerBehaviour
     PlayerBehaviour --> CardBehaviour
-    ActionManager --> CardBehaviour
     RulesManager --> CardBehaviour
+    TurnManager --> PlayerBehaviour
     VisualizationManager --> CardBehaviour
+    VisualizationManager --> PlayerBehaviour
     InputManager --> GameStates
+    InputManager --> PlayerBehaviour
 }
 
 

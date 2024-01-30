@@ -154,10 +154,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Action\ActionManager.cpp" />
+    <ClCompile Include="CardBehaviour.cpp" />
     <ClCompile Include="Card\CardManager.cpp" />
     <ClCompile Include="GameState\GameStateManager.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
+    <ClCompile Include="PlayerBehaviour.cpp" />
     <ClCompile Include="Player\PlayerManager.cpp" />
     <ClCompile Include="Rules\RulesManager.cpp" />
     <ClCompile Include="Turn\TurnManager.cpp" />
@@ -169,12 +170,15 @@
     <Content Include="Docs\Idea Diagram.puml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action\ActionManager.h" />
+    <ClInclude Include="CardBehaviour.h" />
+    <ClInclude Include="CardColors.h" />
+    <ClInclude Include="CardTypes.h" />
     <ClInclude Include="Card\CardManager.h" />
     <ClInclude Include="GameStates.h" />
     <ClInclude Include="GameState\GameStateManager.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="ManagerBase.h" />
+    <ClInclude Include="PlayerBehaviour.h" />
     <ClInclude Include="Player\PlayerManager.h" />
     <ClInclude Include="Rules\RulesManager.h" />
     <ClInclude Include="Turn\TurnManager.h" />

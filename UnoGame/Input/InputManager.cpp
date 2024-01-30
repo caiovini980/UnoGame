@@ -20,16 +20,33 @@ bool InputManager::IsValid(int choice, const GameStates& state)
             return true;
         }
     }
-    
-    // check input for gameplay
-    if (state == InGame)
+
+    if (state == InSetup)
     {
-        // accept from -1 to n - 1 (number of cards on hand - 1)
-        return true;
+        // accept from 2 to 10
+        if (choice > 1 && choice <= _maxInputForAmountOfPlayers)
+        {
+            return true;
+        }
     }
     
     return false;
 }
 
+bool InputManager::IsValid(int choice, PlayerBehaviour& player, bool canShoutUno) const
+{
+    // accept from -1 to n - 1 (number of cards on hand - 1)
+    const int amountOfCardsOnPlayerHand = static_cast<int>(player.GetCards().size());
+
+    return
+        (choice >= 0 && choice <= amountOfCardsOnPlayerHand - 1) ||
+        (choice == _inputForDrawCard) ||
+        (canShoutUno && choice == _inputForUnoShout);
+}
+
 int InputManager::GetMaxInputForMenu() const { return _maxInputForMenu; }
+
+int InputManager::GetDrawCardInput() const{ return _inputForDrawCard; }
+
+int InputManager::GetShoutUNOInput() const { return _inputForUnoShout; }
 

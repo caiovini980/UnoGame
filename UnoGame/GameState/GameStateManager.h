@@ -8,6 +8,8 @@ public:
     void Setup() override;
     void Finish() override;
 
+    void ChangeGameStateTo(const GameStates& target);
+
     GameStates GetCurrentState() const;
 
 private:
