@@ -32,6 +32,7 @@ bool RulesManager::CheckUNOShoutRule(const std::vector<CardBehaviour>& playerCar
 bool RulesManager::CheckPlusRule(const CardBehaviour& cardOnTop, const std::vector<CardBehaviour>& playerCards)
 {
     bool havePlusCard = false;
+    const CardTypes cardOnTopType = cardOnTop.GetCardData().type;
     
     for (const CardBehaviour& card : playerCards)
     {
@@ -41,7 +42,12 @@ bool RulesManager::CheckPlusRule(const CardBehaviour& cardOnTop, const std::vect
         }
     }
 
-    return havePlusCard && (cardOnTop.GetCardData().type == CardTypes::PlusTwo);
+    return havePlusCard && (cardOnTopType == CardTypes::PlusTwo);
+}
+
+bool RulesManager::CheckPlusDiscardRule(const CardBehaviour& cardOnTop)
+{
+    return cardOnTop.GetCardData().type == CardTypes::PlusTwoDiscard;
 }
 
 bool RulesManager::CheckGameOver(const std::vector<CardBehaviour>& playerCards)

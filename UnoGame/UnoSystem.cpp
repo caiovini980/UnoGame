@@ -86,12 +86,36 @@ void UnoSystem::StartGame()
         PlayerBehaviour& playerOfTheRound = _turnManager->GetNextPlayer();
         CardBehaviour cardOnTopOfTossDeck = _cardManager->GetTopOfTossDeck();
         const std::string QuestionCardIndex = "Select a card: ";
+        const CardTypes cardOnTopOfTossDeckType = cardOnTopOfTossDeck.GetCardData().type;
         const bool mustShoutUnoThisRound = _rulesManager->CheckUNOShoutRule(playerOfTheRound.GetCards());
 
-        // check PLUS rule
-        if (amountToDraw > 0 && cardOnTopOfTossDeck.GetCardData().type == CardTypes::PlusTwo)
+        // check PLUS rules
+        if (amountToDraw > 0)
         {
-            CheckWhenHaveAPlusCardOnTopOfTossDeck(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
+            if (cardOnTopOfTossDeckType == CardTypes::PlusTwo)
+            {
+                CheckWhenHaveAPlusCardOnTopOfTossDeck(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
+            }
+
+            else if (cardOnTopOfTossDeckType == CardTypes::PlusTwoDiscard)
+            {
+                if (_rulesManager->CheckPlusDiscardRule(cardOnTopOfTossDeck))
+                {
+                    if (_cardManager->GetSizeOfTossDeck() < amountToDraw)
+                    {
+                        playerOfTheRound.ReceiveCard(_cardManager->PopRandomCardFromTossDeck());
+                    }
+                    else
+                    {
+                        for (int i = 0; i < amountToDraw; i++)
+                        {
+                            playerOfTheRound.ReceiveCard(_cardManager->PopRandomCardFromTossDeck());
+                        }
+                    }
+                    
+                    amountToDraw = 0;
+                }
+            }
         }
         
         std::cout << "\nThe next player to play is: " << *playerOfTheRound.GetName() << "\n";
@@ -142,7 +166,8 @@ void UnoSystem::StartGame()
         }
 
         // check if played plus card when needed
-        if (amountToDraw != 0 && cardPlayed.GetCardData().type != PlusTwo /* or +4, etc */)
+        const CardTypes cardPlayedType = cardPlayed.GetCardData().type;
+        if (amountToDraw != 0 && (cardPlayedType != PlusTwo && cardPlayedType != PlusTwoDiscard))
         {
             const std::string warningText = "You didn't add to the plus sum.\n";
             _visualizationManager->ShowWarningText(warningText);
@@ -171,13 +196,15 @@ void UnoSystem::StartGame()
 
 void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAmountToDraw)
 {
-    if (cardPlayed.GetCardData().type == CardTypes::Reverse)
+    const CardTypes playedCardType = cardPlayed.GetCardData().type;
+    
+    if (playedCardType == CardTypes::Reverse)
     {
         _turnManager->RevertPlayOrder();
     }
         
     // add +2
-    else if (cardPlayed.GetCardData().type == CardTypes::PlusTwo)
+    else if (playedCardType == CardTypes::PlusTwo || playedCardType == CardTypes::PlusTwoDiscard)
     {
         outAmountToDraw += 2;
     }
@@ -185,7 +212,7 @@ void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAm
     // add +4, +10, etc.
 
     // block
-    else if (cardPlayed.GetCardData().type == CardTypes::Block)
+    else if (playedCardType == CardTypes::Block)
     {
         _turnManager->ExecuteTurn(1); 
     }

@@ -37,7 +37,7 @@ public:
 
 private:
     const char* CardColors[4] = { "Green", "Yellow", "Blue", "Red" };
-    const char* CardTypes[4] = { "Number", "Block", "+ 2", "Reverse" };
+    const char* CardTypes[5] = { "Number", "Block", "+ 2", "+ 2 Discard", "Reverse" };
 
     const char* RESET_COLOR_CODE = "\033[0m";
     const char* RED_COLOR_CODE = "\033[1m\033[31m";
