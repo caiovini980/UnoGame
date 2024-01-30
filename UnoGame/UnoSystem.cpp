@@ -197,6 +197,7 @@ void UnoSystem::StartGame()
 void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAmountToDraw)
 {
     const CardTypes playedCardType = cardPlayed.GetCardData().type;
+    constexpr int amountToDrawTwo = 2;
     
     if (playedCardType == CardTypes::Reverse)
     {
@@ -206,7 +207,7 @@ void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAm
     // add +2
     else if (playedCardType == CardTypes::PlusTwo || playedCardType == CardTypes::PlusTwoDiscard)
     {
-        outAmountToDraw += 2;
+        outAmountToDraw += amountToDrawTwo;
     }
 
     // add +4, +10, etc.

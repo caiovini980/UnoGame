@@ -28,14 +28,14 @@ private:
     std::vector<CardBehaviour> _tossDeck;
 
     int _initialDeckSize = 104;
-    int _initialHandSize = 1; // 7
+    int _initialHandSize = 7; // 7
     
     int _amountOfReverseCardsPerColor = 2;
     int _amountOfPlusTwoCardsPerColor = 2;
     int _amountOfPlusTwoDiscardCardsPerColor = 1;
     int _amountOfBlockCardsPerColor = 2;
     
-    int _maxNumberOnCards = 3; // 9
+    int _maxNumberOnCards = 9; // 9
     int _minNumberOnCards = 0;
 
     void CreateAllCards();
