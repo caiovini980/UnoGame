@@ -32,12 +32,26 @@ private:
     void SetupBoard(std::vector<PlayerBehaviour>& players) const;
     
     void StartMenu();
+    
+    void CheckPreTurnRules(int& amountToDraw, PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck, CardTypes cardOnTopOfTossDeckType);
+    void ShowPlayerOfTheRoundAndBoard(PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck, bool mustShoutUnoThisRound) const;
+    void CheckShoutUNORule(bool shoutedUNO, PlayerBehaviour& playerOfTheRound, bool mustShoutUnoThisRound);
+    void CheckPlusCardWhenNeeded(int& amountToDraw, PlayerBehaviour& playerOfTheRound, const CardBehaviour& cardPlayed);
+    void CheckGameOver(PlayerBehaviour& playerOfTheRound);
+    void PlayCardAndChangeTurn(PlayerBehaviour& playerOfTheRound, int cardIndex, CardBehaviour cardPlayed) const;
+    void CheckSpecialCard(int amountToDraw, CardBehaviour cardPlayed);
+    void CheckPostTurnRules(bool shoutedUNO, int amountToDraw, PlayerBehaviour& playerOfTheRound, bool mustShoutUnoThisRound, CardBehaviour cardPlayed);
+    bool IsInputInvalid(PlayerBehaviour& playerOfTheRound, bool mustShoutUnoThisRound, int cardIndex) const;
+    bool IsInputSpecial(bool& shoutedUNO, PlayerBehaviour& playerOfTheRound, int cardIndex);
+    void ClearScreenAndShowPlayOrder() const;
+    void ExecutePlusTwoDiscard(int& amountToDraw, PlayerBehaviour& playerOfTheRound, const CardBehaviour& cardOnTopOfTossDeck) const;
     void PlayerDrawCard(PlayerBehaviour& nextPlayer);
     void CheckWhenHaveAPlusCardOnTopOfTossDeck(int& amountToDraw, PlayerBehaviour& playerOfTheRound, const CardBehaviour& cardOnTopOfTossDeck);
     void BuyDesiredAmountOfCards(int amountToDraw, PlayerBehaviour& playerOfTheRound);
     bool FollowBasicUNORules(const CardBehaviour& cardOnTopOfTossDeck, const CardBehaviour& cardPlayed);
-    void ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAmountToDraw);
+    void ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAmountToDraw) const;
     void GetPlayersInfo(std::vector<std::string>& outNames) const;
+    
     void StartGame();
     void ShowRules();
     void CloseGame();

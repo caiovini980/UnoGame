@@ -78,115 +78,29 @@ void UnoSystem::StartGame()
     
     while (!_isGameOver)
     {
-        // screen setup
-        _visualizationManager->ClearScreen();
-        _turnManager->ShowPlayOrder();
-
-        // variables
         PlayerBehaviour& playerOfTheRound = _turnManager->GetNextPlayer();
         CardBehaviour cardOnTopOfTossDeck = _cardManager->GetTopOfTossDeck();
         const std::string QuestionCardIndex = "Select a card: ";
         const CardTypes cardOnTopOfTossDeckType = cardOnTopOfTossDeck.GetCardData().type;
         const bool mustShoutUnoThisRound = _rulesManager->CheckUNOShoutRule(playerOfTheRound.GetCards());
-
-        // check PLUS rules
-        if (amountToDraw > 0)
-        {
-            if (cardOnTopOfTossDeckType == CardTypes::PlusTwo)
-            {
-                CheckWhenHaveAPlusCardOnTopOfTossDeck(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
-            }
-
-            else if (cardOnTopOfTossDeckType == CardTypes::PlusTwoDiscard)
-            {
-                if (_rulesManager->CheckPlusDiscardRule(cardOnTopOfTossDeck))
-                {
-                    if (_cardManager->GetSizeOfTossDeck() < amountToDraw)
-                    {
-                        playerOfTheRound.ReceiveCard(_cardManager->PopRandomCardFromTossDeck());
-                    }
-                    else
-                    {
-                        for (int i = 0; i < amountToDraw; i++)
-                        {
-                            playerOfTheRound.ReceiveCard(_cardManager->PopRandomCardFromTossDeck());
-                        }
-                    }
-                    
-                    amountToDraw = 0;
-                }
-            }
-        }
         
-        std::cout << "\nThe next player to play is: " << *playerOfTheRound.GetName() << "\n";
-        _visualizationManager->ShowBoard(cardOnTopOfTossDeck, playerOfTheRound.GetCards(), mustShoutUnoThisRound);
+        ClearScreenAndShowPlayOrder();
+        CheckPreTurnRules(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck, cardOnTopOfTossDeckType);
+        ShowPlayerOfTheRoundAndBoard(playerOfTheRound, cardOnTopOfTossDeck, mustShoutUnoThisRound);
         
-        // get input
         const int cardIndex = _visualizationManager->AskForInput<int>(QuestionCardIndex);
-        if (!_inputManager->IsValid(cardIndex, playerOfTheRound, mustShoutUnoThisRound))
-        {
-            std::cout << "Invalid input... Please select a valid one!\n";
-            _visualizationManager->WaitForInput();
-            continue;
-        }
-
-        // check input
-        if (cardIndex == _inputManager->GetDrawCardInput())
-        {
-            PlayerDrawCard(playerOfTheRound);
-            continue;
-        }
-            
-        if (cardIndex == _inputManager->GetShoutUNOInput())
-        {
-            shoutedUNO = true;
-            continue;
-        }
-        
         CardBehaviour cardPlayed = playerOfTheRound.GetSelectedCard(cardIndex);
+        
+        if (IsInputInvalid(playerOfTheRound, mustShoutUnoThisRound, cardIndex)) continue;
+        if (IsInputSpecial(shoutedUNO, playerOfTheRound, cardIndex)) continue;
         if (!FollowBasicUNORules(cardOnTopOfTossDeck, cardPlayed)) continue;
         
-        playerOfTheRound.RemoveCardFromHandByIndex(cardIndex);
-        _cardManager->AddCardToTopTossDeck(cardPlayed);
-        _turnManager->ExecuteTurn(1);
-        
-        if (cardPlayed.GetCardData().type != CardTypes::Number)
-        {
-            ExecuteSpecialAction(cardPlayed, amountToDraw);
-        }
-
-        // check UNO shout rule
-        if (mustShoutUnoThisRound && !shoutedUNO)
-        {
-            const int amountToDrawUnoRule = _rulesManager->GetAmountOfCardsToDrawWhenViolatesShoutUnoRule();
-            const std::string warningText = "\nMust shout 'UNO' when with 2 cards on hand. Bought 2 cards!\n";
-            
-            _visualizationManager->ShowWarningText(warningText);
-            BuyDesiredAmountOfCards(amountToDrawUnoRule, playerOfTheRound);
-        }
-
-        // check if played plus card when needed
-        const CardTypes cardPlayedType = cardPlayed.GetCardData().type;
-        if (amountToDraw != 0 && (cardPlayedType != PlusTwo && cardPlayedType != PlusTwoDiscard))
-        {
-            const std::string warningText = "You didn't add to the plus sum.\n";
-            _visualizationManager->ShowWarningText(warningText);
-            std::cout << "Must buy "<< amountToDraw << " cards!\n";
-        
-            BuyDesiredAmountOfCards(amountToDraw, playerOfTheRound);
-            amountToDraw = 0;
-        }
+        PlayCardAndChangeTurn(playerOfTheRound, cardIndex, cardPlayed);
+        CheckPostTurnRules(shoutedUNO, amountToDraw, playerOfTheRound, mustShoutUnoThisRound, cardPlayed);
 
         shoutedUNO = false;
         _visualizationManager->WaitForInput();
-
-        if(_rulesManager->CheckGameOver(playerOfTheRound.GetCards()))
-        {
-            _isGameOver = true;
-            _visualizationManager->ClearScreen();
-            _visualizationManager->ShowWinner(*playerOfTheRound.GetName());
-            _visualizationManager->WaitForInput();
-        }
+        CheckGameOver(playerOfTheRound);
     }
 
     std::cout << "Returning to main menu. ";
@@ -194,7 +108,144 @@ void UnoSystem::StartGame()
     StartMenu();
 }
 
-void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAmountToDraw)
+void UnoSystem::CheckPreTurnRules(int& amountToDraw, PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck, const CardTypes cardOnTopOfTossDeckType)
+{
+    if (amountToDraw > 0)
+    {
+        if (cardOnTopOfTossDeckType == CardTypes::PlusTwo)
+        {
+            CheckWhenHaveAPlusCardOnTopOfTossDeck(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
+        }
+
+        else if (cardOnTopOfTossDeckType == CardTypes::PlusTwoDiscard)
+        {
+            ExecutePlusTwoDiscard(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
+        }
+
+        // Add more card rules here
+    }
+}
+
+void UnoSystem::ShowPlayerOfTheRoundAndBoard(PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck, const bool mustShoutUnoThisRound) const
+{
+    std::cout << "\nPlayer of the round is: " << *playerOfTheRound.GetName() << "\n";
+    _visualizationManager->ShowBoard(cardOnTopOfTossDeck, playerOfTheRound.GetCards(), mustShoutUnoThisRound);
+}
+
+void UnoSystem::CheckShoutUNORule(bool shoutedUNO, PlayerBehaviour& playerOfTheRound, const bool mustShoutUnoThisRound)
+{
+    if (mustShoutUnoThisRound && !shoutedUNO)
+    {
+        const int amountToDrawUnoRule = _rulesManager->GetAmountOfCardsToDrawWhenViolatesShoutUnoRule();
+        const std::string warningText = "\nMust shout 'UNO' when with 2 cards on hand. Bought 2 cards!\n";
+            
+        _visualizationManager->ShowWarningText(warningText);
+        BuyDesiredAmountOfCards(amountToDrawUnoRule, playerOfTheRound);
+    }
+}
+
+void UnoSystem::CheckPlusCardWhenNeeded(int& amountToDraw, PlayerBehaviour& playerOfTheRound, const CardBehaviour& cardPlayed)
+{
+    const CardTypes cardPlayedType = cardPlayed.GetCardData().type;
+    if (amountToDraw != 0 && (cardPlayedType != PlusTwo && cardPlayedType != PlusTwoDiscard))
+    {
+        const std::string warningText = "You didn't add to the plus sum.\n";
+        _visualizationManager->ShowWarningText(warningText);
+        std::cout << "Must buy "<< amountToDraw << " cards!\n";
+        
+        BuyDesiredAmountOfCards(amountToDraw, playerOfTheRound);
+        amountToDraw = 0;
+    }
+}
+
+void UnoSystem::CheckGameOver(PlayerBehaviour& playerOfTheRound)
+{
+    if(_rulesManager->CheckGameOver(playerOfTheRound.GetCards()))
+    {
+        _isGameOver = true;
+        _visualizationManager->ClearScreen();
+        _visualizationManager->ShowWinner(*playerOfTheRound.GetName());
+        _visualizationManager->WaitForInput();
+    }
+}
+
+void UnoSystem::PlayCardAndChangeTurn(PlayerBehaviour& playerOfTheRound, const int cardIndex, CardBehaviour cardPlayed) const
+{
+    playerOfTheRound.RemoveCardFromHandByIndex(cardIndex);
+    _cardManager->AddCardToTopTossDeck(cardPlayed);
+    _turnManager->ExecuteTurn(1);
+}
+
+void UnoSystem::CheckSpecialCard(int amountToDraw, CardBehaviour cardPlayed)
+{
+    if (cardPlayed.GetCardData().type != CardTypes::Number)
+    {
+        ExecuteSpecialAction(cardPlayed, amountToDraw);
+    }
+}
+
+void UnoSystem::CheckPostTurnRules(bool shoutedUNO, int amountToDraw, PlayerBehaviour& playerOfTheRound, const bool mustShoutUnoThisRound, CardBehaviour cardPlayed)
+{
+    CheckSpecialCard(amountToDraw, cardPlayed);
+    CheckShoutUNORule(shoutedUNO, playerOfTheRound, mustShoutUnoThisRound);
+    CheckPlusCardWhenNeeded(amountToDraw, playerOfTheRound, cardPlayed);
+}
+
+bool UnoSystem::IsInputInvalid(PlayerBehaviour& playerOfTheRound, const bool mustShoutUnoThisRound, const int cardIndex) const
+{
+    if (!_inputManager->IsValid(cardIndex, playerOfTheRound, mustShoutUnoThisRound))
+    {
+        std::cout << "Invalid input... Please select a valid one!\n";
+        _visualizationManager->WaitForInput();
+        return true;
+    }
+    return false;
+}
+
+bool UnoSystem::IsInputSpecial(bool& shoutedUNO, PlayerBehaviour& playerOfTheRound, const int cardIndex)
+{
+    if (cardIndex == _inputManager->GetDrawCardInput())
+    {
+        PlayerDrawCard(playerOfTheRound);
+        return true;
+    }
+            
+    if (cardIndex == _inputManager->GetShoutUNOInput())
+    {
+        shoutedUNO = true;
+        return true;
+    }
+    
+    return false;
+}
+
+void UnoSystem::ClearScreenAndShowPlayOrder() const
+{
+    _visualizationManager->ClearScreen();
+    _turnManager->ShowPlayOrder();
+}
+
+void UnoSystem::ExecutePlusTwoDiscard(int& amountToDraw, PlayerBehaviour& playerOfTheRound, const CardBehaviour& cardOnTopOfTossDeck) const
+{
+    if (_rulesManager->CheckPlusDiscardRule(cardOnTopOfTossDeck))
+    {
+        if (_cardManager->GetSizeOfTossDeck() < amountToDraw)
+        {
+            playerOfTheRound.ReceiveCard(_cardManager->PopRandomCardFromTossDeck());
+        }
+        else
+        {
+            for (int i = 0; i < amountToDraw; i++)
+            {
+                playerOfTheRound.ReceiveCard(_cardManager->PopRandomCardFromTossDeck());
+            }
+        }
+                    
+        amountToDraw = 0;
+    }
+}
+
+void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAmountToDraw) const
 {
     const CardTypes playedCardType = cardPlayed.GetCardData().type;
     constexpr int amountToDrawTwo = 2;

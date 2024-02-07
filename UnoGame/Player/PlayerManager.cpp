@@ -13,7 +13,7 @@ const std::vector<PlayerBehaviour>& PlayerManager::CreatePlayers(std::vector<std
 {
     players.reserve(playerNames.size());
     
-    for (int i = 0; i < playerNames.size(); i++)
+    for (int i = 0; i < static_cast<int>(playerNames.size()); i++)
     {
         PlayerBehaviour newPlayer{std::move(playerNames[i])};
         players.emplace_back(newPlayer);
