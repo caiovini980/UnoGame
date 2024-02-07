@@ -69,7 +69,15 @@ void UnoSystem::StartGame()
     
     names.clear();
     
-    // GAME LOOP
+    ExecuteGameLoop();
+
+    std::cout << "Returning to main menu. ";
+    _visualizationManager->WaitForInput();
+    StartMenu();
+}
+
+void UnoSystem::ExecuteGameLoop()
+{
     _gameStateManager->ChangeGameStateTo(GameStates::InGame);
     _isGameOver = false;
 
@@ -81,35 +89,31 @@ void UnoSystem::StartGame()
         PlayerBehaviour& playerOfTheRound = _turnManager->GetNextPlayer();
         CardBehaviour cardOnTopOfTossDeck = _cardManager->GetTopOfTossDeck();
         const std::string QuestionCardIndex = "Select a card: ";
-        const CardTypes cardOnTopOfTossDeckType = cardOnTopOfTossDeck.GetCardData().type;
-        const bool mustShoutUnoThisRound = _rulesManager->CheckUNOShoutRule(playerOfTheRound.GetCards());
         
         ClearScreenAndShowPlayOrder();
-        CheckPreTurnRules(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck, cardOnTopOfTossDeckType);
-        ShowPlayerOfTheRoundAndBoard(playerOfTheRound, cardOnTopOfTossDeck, mustShoutUnoThisRound);
+        CheckPreTurnRules(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
+        ShowPlayerOfTheRoundAndBoard(playerOfTheRound, cardOnTopOfTossDeck);
         
         const int cardIndex = _visualizationManager->AskForInput<int>(QuestionCardIndex);
         CardBehaviour cardPlayed = playerOfTheRound.GetSelectedCard(cardIndex);
         
-        if (IsInputInvalid(playerOfTheRound, mustShoutUnoThisRound, cardIndex)) continue;
+        if (IsInputInvalid(playerOfTheRound, cardIndex)) continue;
         if (IsInputSpecial(shoutedUNO, playerOfTheRound, cardIndex)) continue;
         if (!FollowBasicUNORules(cardOnTopOfTossDeck, cardPlayed)) continue;
         
         PlayCardAndChangeTurn(playerOfTheRound, cardIndex, cardPlayed);
-        CheckPostTurnRules(shoutedUNO, amountToDraw, playerOfTheRound, mustShoutUnoThisRound, cardPlayed);
+        CheckPostTurnRules(shoutedUNO, amountToDraw, playerOfTheRound, cardPlayed);
 
         shoutedUNO = false;
         _visualizationManager->WaitForInput();
         CheckGameOver(playerOfTheRound);
     }
-
-    std::cout << "Returning to main menu. ";
-    _visualizationManager->WaitForInput();
-    StartMenu();
 }
 
-void UnoSystem::CheckPreTurnRules(int& amountToDraw, PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck, const CardTypes cardOnTopOfTossDeckType)
+void UnoSystem::CheckPreTurnRules(int& amountToDraw, PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck)
 {
+    const CardTypes cardOnTopOfTossDeckType = cardOnTopOfTossDeck.GetCardData().type;
+    
     if (amountToDraw > 0)
     {
         if (cardOnTopOfTossDeckType == CardTypes::PlusTwo)
@@ -126,8 +130,9 @@ void UnoSystem::CheckPreTurnRules(int& amountToDraw, PlayerBehaviour& playerOfTh
     }
 }
 
-void UnoSystem::ShowPlayerOfTheRoundAndBoard(PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck, const bool mustShoutUnoThisRound) const
+void UnoSystem::ShowPlayerOfTheRoundAndBoard(PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck) const
 {
+    const bool mustShoutUnoThisRound = _rulesManager->CheckUNOShoutRule(playerOfTheRound.GetCards());
     std::cout << "\nPlayer of the round is: " << *playerOfTheRound.GetName() << "\n";
     _visualizationManager->ShowBoard(cardOnTopOfTossDeck, playerOfTheRound.GetCards(), mustShoutUnoThisRound);
 }
@@ -147,7 +152,7 @@ void UnoSystem::CheckShoutUNORule(bool shoutedUNO, PlayerBehaviour& playerOfTheR
 void UnoSystem::CheckPlusCardWhenNeeded(int& amountToDraw, PlayerBehaviour& playerOfTheRound, const CardBehaviour& cardPlayed)
 {
     const CardTypes cardPlayedType = cardPlayed.GetCardData().type;
-    if (amountToDraw != 0 && (cardPlayedType != PlusTwo && cardPlayedType != PlusTwoDiscard))
+    if (amountToDraw != 0 && (cardPlayedType != PlusTwo && cardPlayedType != PlusTwoDiscard)) // TODO add boolean on CardBehaviour that handle the 'PlusTwo' identification
     {
         const std::string warningText = "You didn't add to the plus sum.\n";
         _visualizationManager->ShowWarningText(warningText);
@@ -176,7 +181,7 @@ void UnoSystem::PlayCardAndChangeTurn(PlayerBehaviour& playerOfTheRound, const i
     _turnManager->ExecuteTurn(1);
 }
 
-void UnoSystem::CheckSpecialCard(int amountToDraw, CardBehaviour cardPlayed)
+void UnoSystem::CheckSpecialCard(int amountToDraw, CardBehaviour cardPlayed) const
 {
     if (cardPlayed.GetCardData().type != CardTypes::Number)
     {
@@ -184,15 +189,17 @@ void UnoSystem::CheckSpecialCard(int amountToDraw, CardBehaviour cardPlayed)
     }
 }
 
-void UnoSystem::CheckPostTurnRules(bool shoutedUNO, int amountToDraw, PlayerBehaviour& playerOfTheRound, const bool mustShoutUnoThisRound, CardBehaviour cardPlayed)
+void UnoSystem::CheckPostTurnRules(bool shoutedUNO, int amountToDraw, PlayerBehaviour& playerOfTheRound, CardBehaviour cardPlayed)
 {
+    const bool mustShoutUnoThisRound = _rulesManager->CheckUNOShoutRule(playerOfTheRound.GetCards());
     CheckSpecialCard(amountToDraw, cardPlayed);
     CheckShoutUNORule(shoutedUNO, playerOfTheRound, mustShoutUnoThisRound);
     CheckPlusCardWhenNeeded(amountToDraw, playerOfTheRound, cardPlayed);
 }
 
-bool UnoSystem::IsInputInvalid(PlayerBehaviour& playerOfTheRound, const bool mustShoutUnoThisRound, const int cardIndex) const
+bool UnoSystem::IsInputInvalid(PlayerBehaviour& playerOfTheRound, const int cardIndex) const
 {
+    const bool mustShoutUnoThisRound = _rulesManager->CheckUNOShoutRule(playerOfTheRound.GetCards());
     if (!_inputManager->IsValid(cardIndex, playerOfTheRound, mustShoutUnoThisRound))
     {
         std::cout << "Invalid input... Please select a valid one!\n";
