@@ -17,50 +17,49 @@ void UnoSystem::SetupManagers() const
     _visualizationManager->Setup();
 }
 
+void UnoSystem::HandleValidMenuInput(int choice)
+{
+    constexpr int startGameOption = 1;
+    constexpr int showRulesOption = 2;
+        
+    if (choice == startGameOption)
+    {
+        StartGame();
+    }
+    else if (choice == showRulesOption)
+    {
+        ShowRules();
+    }
+    else
+    {
+        CloseGame();
+    }
+}
+
 void UnoSystem::StartMenu()
 {
     _gameStateManager->ChangeGameStateTo(GameStates::InMenu);
     _visualizationManager->ClearScreen();
     
-    std::cout << "Welcome to the UNO game!\nPlease select an option:\n\n";
-    std::cout << "1 - Start Game\n";
-    std::cout << "2 - Rules\n";
-    std::cout << "3 - Close Game\n\n";
+    ShowMenu();
     
     int choice;
     std::cin >> choice;
 
     _visualizationManager->ClearScreen();
-    if(_inputManager->IsValid(choice, _gameStateManager->GetCurrentState()))
+    if(IsMenuInputValid(choice))
     {
-        constexpr int startGameOption = 1;
-        constexpr int showRulesOption = 2;
-        
-        if (choice == startGameOption)
-        {
-            StartGame();
-        }
-        else if (choice == showRulesOption)
-        {
-            ShowRules();
-        }
-        else
-        {
-            CloseGame();
-        }
+        HandleValidMenuInput(choice);
     }
     else
     {
-        std::cout << "Please enter a valid input.\n";
-        _visualizationManager->WaitForInput();
+        HandleInvalidMenuInput();
         StartMenu();
     }
 }
 
-void UnoSystem::StartGame()
+void UnoSystem::InitializePlayersAndSetupBoard() const
 {
-    _gameStateManager->ChangeGameStateTo(GameStates::InSetup);
-    
     std::vector<std::string> names;
     GetPlayersInfo(names);
 
@@ -68,12 +67,24 @@ void UnoSystem::StartGame()
     SetupBoard(players);
     
     names.clear();
+}
+
+void UnoSystem::StartGame()
+{
+    _gameStateManager->ChangeGameStateTo(GameStates::InSetup);
     
+    InitializePlayersAndSetupBoard();
     ExecuteGameLoop();
 
     std::cout << "Returning to main menu. ";
     _visualizationManager->WaitForInput();
     StartMenu();
+}
+
+int UnoSystem::GetPlayerInput() const
+{
+    const std::string QuestionCardIndex = "Select a card: ";
+    return _visualizationManager->AskForInput<int>(QuestionCardIndex);
 }
 
 void UnoSystem::ExecuteGameLoop()
@@ -88,13 +99,12 @@ void UnoSystem::ExecuteGameLoop()
     {
         PlayerBehaviour& playerOfTheRound = _turnManager->GetNextPlayer();
         CardBehaviour cardOnTopOfTossDeck = _cardManager->GetTopOfTossDeck();
-        const std::string QuestionCardIndex = "Select a card: ";
         
         ClearScreenAndShowPlayOrder();
         CheckPreTurnRules(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
         ShowPlayerOfTheRoundAndBoard(playerOfTheRound, cardOnTopOfTossDeck);
-        
-        const int cardIndex = _visualizationManager->AskForInput<int>(QuestionCardIndex);
+
+        const int cardIndex = GetPlayerInput();
         CardBehaviour cardPlayed = playerOfTheRound.GetSelectedCard(cardIndex);
         
         if (IsInputInvalid(playerOfTheRound, cardIndex)) continue;
@@ -106,28 +116,32 @@ void UnoSystem::ExecuteGameLoop()
 
         shoutedUNO = false;
         _visualizationManager->WaitForInput();
+        
         CheckGameOver(playerOfTheRound);
+    }
+}
+
+void UnoSystem::CheckPlusCards(int& amountToDraw, PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck)
+{
+    const CardTypes cardOnTopOfTossDeckType = cardOnTopOfTossDeck.GetCardData().type;
+    if (cardOnTopOfTossDeckType == CardTypes::PlusTwo)
+    {
+        CheckWhenHaveAPlusCardOnTopOfTossDeck(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
+    }
+
+    else if (cardOnTopOfTossDeckType == CardTypes::PlusTwoDiscard)
+    {
+        ExecutePlusTwoDiscard(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
     }
 }
 
 void UnoSystem::CheckPreTurnRules(int& amountToDraw, PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck)
 {
-    const CardTypes cardOnTopOfTossDeckType = cardOnTopOfTossDeck.GetCardData().type;
+    if (amountToDraw <= 0) { return; }
     
-    if (amountToDraw > 0)
-    {
-        if (cardOnTopOfTossDeckType == CardTypes::PlusTwo)
-        {
-            CheckWhenHaveAPlusCardOnTopOfTossDeck(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
-        }
+    CheckPlusCards(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
 
-        else if (cardOnTopOfTossDeckType == CardTypes::PlusTwoDiscard)
-        {
-            ExecutePlusTwoDiscard(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
-        }
-
-        // Add more card rules here
-    }
+    // Add more card rules here
 }
 
 void UnoSystem::ShowPlayerOfTheRoundAndBoard(PlayerBehaviour& playerOfTheRound, CardBehaviour cardOnTopOfTossDeck) const
@@ -137,16 +151,30 @@ void UnoSystem::ShowPlayerOfTheRoundAndBoard(PlayerBehaviour& playerOfTheRound, 
     _visualizationManager->ShowBoard(cardOnTopOfTossDeck, playerOfTheRound.GetCards(), mustShoutUnoThisRound);
 }
 
+void UnoSystem::HandleShoutUNORuleViolation(PlayerBehaviour& playerOfTheRound)
+{
+    const int amountToDrawUnoRule = _rulesManager->GetAmountOfCardsToDrawWhenViolatesShoutUnoRule();
+    const std::string warningText = "\nMust shout 'UNO' when with 2 cards on hand. Bought 2 cards!\n";
+            
+    _visualizationManager->ShowWarningText(warningText);
+    BuyDesiredAmountOfCards(amountToDrawUnoRule, playerOfTheRound);
+}
+
 void UnoSystem::CheckShoutUNORule(bool shoutedUNO, PlayerBehaviour& playerOfTheRound, const bool mustShoutUnoThisRound)
 {
     if (mustShoutUnoThisRound && !shoutedUNO)
     {
-        const int amountToDrawUnoRule = _rulesManager->GetAmountOfCardsToDrawWhenViolatesShoutUnoRule();
-        const std::string warningText = "\nMust shout 'UNO' when with 2 cards on hand. Bought 2 cards!\n";
-            
-        _visualizationManager->ShowWarningText(warningText);
-        BuyDesiredAmountOfCards(amountToDrawUnoRule, playerOfTheRound);
+        HandleShoutUNORuleViolation(playerOfTheRound);
     }
+}
+
+void UnoSystem::HandlePlusCardAdditionViolation(int& amountToDraw, PlayerBehaviour& playerOfTheRound)
+{
+    const std::string warningText = "You didn't add to the plus sum.\n";
+    _visualizationManager->ShowWarningText(warningText);
+    std::cout << "Must buy "<< amountToDraw << " cards!\n";
+        
+    BuyDesiredAmountOfCards(amountToDraw, playerOfTheRound);
 }
 
 void UnoSystem::CheckPlusCardWhenNeeded(int& amountToDraw, PlayerBehaviour& playerOfTheRound, const CardBehaviour& cardPlayed)
@@ -154,13 +182,16 @@ void UnoSystem::CheckPlusCardWhenNeeded(int& amountToDraw, PlayerBehaviour& play
     const CardTypes cardPlayedType = cardPlayed.GetCardData().type;
     if (amountToDraw != 0 && (cardPlayedType != PlusTwo && cardPlayedType != PlusTwoDiscard)) // TODO add boolean on CardBehaviour that handle the 'PlusTwo' identification
     {
-        const std::string warningText = "You didn't add to the plus sum.\n";
-        _visualizationManager->ShowWarningText(warningText);
-        std::cout << "Must buy "<< amountToDraw << " cards!\n";
-        
-        BuyDesiredAmountOfCards(amountToDraw, playerOfTheRound);
+        HandlePlusCardAdditionViolation(amountToDraw, playerOfTheRound);
         amountToDraw = 0;
     }
+}
+
+void UnoSystem::ExecuteGameOver(PlayerBehaviour& playerOfTheRound)
+{
+    _visualizationManager->ClearScreen();
+    _visualizationManager->ShowWinner(*playerOfTheRound.GetName());
+    _visualizationManager->WaitForInput();
 }
 
 void UnoSystem::CheckGameOver(PlayerBehaviour& playerOfTheRound)
@@ -168,9 +199,7 @@ void UnoSystem::CheckGameOver(PlayerBehaviour& playerOfTheRound)
     if(_rulesManager->CheckGameOver(playerOfTheRound.GetCards()))
     {
         _isGameOver = true;
-        _visualizationManager->ClearScreen();
-        _visualizationManager->ShowWinner(*playerOfTheRound.GetName());
-        _visualizationManager->WaitForInput();
+        ExecuteGameOver(playerOfTheRound);
     }
 }
 
@@ -197,6 +226,20 @@ void UnoSystem::CheckPostTurnRules(bool shoutedUNO, int amountToDraw, PlayerBeha
     CheckPlusCardWhenNeeded(amountToDraw, playerOfTheRound, cardPlayed);
 }
 
+void UnoSystem::HandleInvalidMenuInput() const
+{
+    std::cout << "Please enter a valid input.\n";
+    _visualizationManager->WaitForInput();
+}
+
+void UnoSystem::ShowMenu()
+{
+    std::cout << "Welcome to the UNO game!\nPlease select an option:\n\n";
+    std::cout << "1 - Start Game\n";
+    std::cout << "2 - Rules\n";
+    std::cout << "3 - Close Game\n\n";
+}
+
 bool UnoSystem::IsInputInvalid(PlayerBehaviour& playerOfTheRound, const int cardIndex) const
 {
     const bool mustShoutUnoThisRound = _rulesManager->CheckUNOShoutRule(playerOfTheRound.GetCards());
@@ -209,15 +252,25 @@ bool UnoSystem::IsInputInvalid(PlayerBehaviour& playerOfTheRound, const int card
     return false;
 }
 
-bool UnoSystem::IsInputSpecial(bool& shoutedUNO, PlayerBehaviour& playerOfTheRound, const int cardIndex)
+bool UnoSystem::CheckDrawInput(PlayerBehaviour& playerOfTheRound, int cardIndex)
 {
     if (cardIndex == _inputManager->GetDrawCardInput())
     {
         PlayerDrawCard(playerOfTheRound);
         return true;
     }
-            
-    if (cardIndex == _inputManager->GetShoutUNOInput())
+    
+    return false;
+}
+
+bool UnoSystem::IsInputSpecial(bool& shoutedUNO, PlayerBehaviour& playerOfTheRound, const int cardIndex)
+{
+    if (CheckDrawInput(playerOfTheRound, cardIndex))
+    {
+        return true;
+    }
+
+    if (CheckUNOShoutInput(cardIndex))
     {
         shoutedUNO = true;
         return true;
@@ -252,28 +305,41 @@ void UnoSystem::ExecutePlusTwoDiscard(int& amountToDraw, PlayerBehaviour& player
     }
 }
 
+void UnoSystem::ExecuteReverseCard() const
+{
+    _turnManager->RevertPlayOrder();
+}
+
+void UnoSystem::ExecutePlusTwoCard(int& outAmountToDraw) const
+{
+    constexpr int amountToDrawTwo = 2;
+    outAmountToDraw += amountToDrawTwo;
+}
+
+void UnoSystem::ExecuteBlockCard() const
+{
+    _turnManager->ExecuteTurn(1);
+}
+
 void UnoSystem::ExecuteSpecialAction(const CardBehaviour& cardPlayed, int& outAmountToDraw) const
 {
     const CardTypes playedCardType = cardPlayed.GetCardData().type;
-    constexpr int amountToDrawTwo = 2;
-    
+
     if (playedCardType == CardTypes::Reverse)
     {
-        _turnManager->RevertPlayOrder();
+        ExecuteReverseCard();
     }
-        
-    // add +2
+    
     else if (playedCardType == CardTypes::PlusTwo || playedCardType == CardTypes::PlusTwoDiscard)
     {
-        outAmountToDraw += amountToDrawTwo;
+        ExecutePlusTwoCard(outAmountToDraw);
     }
 
     // add +4, +10, etc.
 
-    // block
     else if (playedCardType == CardTypes::Block)
     {
-        _turnManager->ExecuteTurn(1); 
+        ExecuteBlockCard(); 
     }
 }
 
@@ -305,29 +371,38 @@ void UnoSystem::BuyDesiredAmountOfCards(int amountToDraw, PlayerBehaviour& playe
     }
 }
 
-bool UnoSystem::FollowBasicUNORules(const CardBehaviour& cardOnTopOfTossDeck, const CardBehaviour& cardPlayed)
+bool UnoSystem::HaveTheSameColor(const CardBehaviour& cardOnTopOfTossDeck, const CardBehaviour& cardPlayed) const
 {
-    if (_rulesManager->CheckCardColor(cardPlayed, cardOnTopOfTossDeck))
+    return _rulesManager->CheckCardColor(cardPlayed, cardOnTopOfTossDeck);
+}
+
+bool UnoSystem::HaveTheSameNumberAndType(const CardBehaviour& cardOnTopOfTossDeck,
+    const CardBehaviour& cardPlayed) const
+{
+    return _rulesManager->CheckCardNumber(cardPlayed, cardOnTopOfTossDeck) &&
+        _rulesManager->CheckCardType(cardPlayed, cardOnTopOfTossDeck);
+}
+
+void UnoSystem::HandleInvalidPlay() const
+{
+    std::cout << "Invalid play... Colors must match!\n";
+    _visualizationManager->WaitForInput();
+}
+
+bool UnoSystem::FollowBasicUNORules(const CardBehaviour& cardOnTopOfTossDeck, const CardBehaviour& cardPlayed) const
+{
+    if (HaveTheSameColor(cardOnTopOfTossDeck, cardPlayed) ||
+        HaveTheSameNumberAndType(cardOnTopOfTossDeck, cardPlayed))
     {
         return true;
     }
     
-    if (_rulesManager->CheckCardNumber(cardPlayed, cardOnTopOfTossDeck) &&
-        _rulesManager->CheckCardType(cardPlayed, cardOnTopOfTossDeck))
-    {
-        return true;  
-    }
-    
-    std::cout << "Invalid play... Colors must match!\n";
-    _visualizationManager->WaitForInput();
+    HandleInvalidPlay();
     return false;
 }
 
-void UnoSystem::SetupBoard(std::vector<PlayerBehaviour>& players) const
+void UnoSystem::GivePlayersInitialCards(std::vector<PlayerBehaviour>& players) const
 {
-    _visualizationManager->ClearScreen();
-    _cardManager->ShuffleCards();
-    
     const int initialHandSize = _cardManager->GetInitialHandSize();
     for (int i = 0; i < static_cast<int>(players.size()); i++)
     {
@@ -337,29 +412,27 @@ void UnoSystem::SetupBoard(std::vector<PlayerBehaviour>& players) const
             players[i].ReceiveCard(card);
         }
     }
+}
+
+void UnoSystem::SetupBoard(std::vector<PlayerBehaviour>& players) const
+{
+    _visualizationManager->ClearScreen();
+    _cardManager->ShuffleCards();
+    
+    GivePlayersInitialCards(players);
 
     _turnManager->SetInitialPlayOrder(players);
     _turnManager->ShowPlayOrder();
 }
 
-void UnoSystem::GetPlayersInfo(std::vector<std::string>& outNames) const
+void UnoSystem::HandleInvalidAmountOfPlayers() const
 {
-    _visualizationManager->ClearScreen();
-    
-    const std::string QuestionNumberOfPlayers = "How many players are going to play? ";
-    const int amountOfPlayers = _visualizationManager->AskForInput<int>(QuestionNumberOfPlayers);
+    std::cout << "The amount of players must be between 2 and 10.\n";
+    _visualizationManager->WaitForInput();
+}
 
-    if (!_inputManager->IsValid(amountOfPlayers, _gameStateManager->GetCurrentState()))
-    {
-        std::cout << "The amount of players must be between 2 and 10.\n";
-        _visualizationManager->WaitForInput();
-        GetPlayersInfo(outNames);
-        return;
-    }
-
-    outNames = {};
-    outNames.reserve(amountOfPlayers);
-
+void UnoSystem::GetPlayersNames(std::vector<std::string>& outNames, const int amountOfPlayers) const
+{
     for (int i = 0; i < amountOfPlayers; i++)
     {
         std::string AskForAName = "Insert a name ";
@@ -367,6 +440,43 @@ void UnoSystem::GetPlayersInfo(std::vector<std::string>& outNames) const
 
         outNames.emplace_back(name);
     }
+}
+
+void UnoSystem::GetPlayersInfo(std::vector<std::string>& outNames) const
+{
+    _visualizationManager->ClearScreen();
+
+    const int amountOfPlayers = GetAmountOfPlayers();
+    if (!IsAmountOfPlayersValid(amountOfPlayers))
+    {
+        HandleInvalidAmountOfPlayers();
+        GetPlayersInfo(outNames);
+        return;
+    }
+    
+    outNames.reserve(amountOfPlayers);
+    GetPlayersNames(outNames, amountOfPlayers);
+}
+
+int UnoSystem::GetAmountOfPlayers() const
+{
+    const std::string QuestionNumberOfPlayers = "How many players are going to play? ";
+    return _visualizationManager->AskForInput<int>(QuestionNumberOfPlayers);
+}
+
+bool UnoSystem::IsAmountOfPlayersValid(int amountOfPlayers) const
+{
+    return _inputManager->IsValid(amountOfPlayers, _gameStateManager->GetCurrentState());
+}
+
+bool UnoSystem::IsMenuInputValid(int choice) const
+{
+    return _inputManager->IsValid(choice, _gameStateManager->GetCurrentState());
+}
+
+bool UnoSystem::CheckUNOShoutInput(const int cardIndex) const
+{
+    return cardIndex == _inputManager->GetShoutUNOInput();
 }
 
 void UnoSystem::ShowRules()
