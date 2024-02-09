@@ -103,7 +103,7 @@ void UnoSystem::ExecuteGameLoop()
         ClearScreenAndShowPlayOrder();
         CheckPreTurnRules(amountToDraw, playerOfTheRound, cardOnTopOfTossDeck);
         ShowPlayerOfTheRoundAndBoard(playerOfTheRound, cardOnTopOfTossDeck);
-
+        
         const int cardIndex = GetPlayerInput();
         CardBehaviour cardPlayed = playerOfTheRound.GetSelectedCard(cardIndex);
         
@@ -287,22 +287,23 @@ void UnoSystem::ClearScreenAndShowPlayOrder() const
 
 void UnoSystem::ExecutePlusTwoDiscard(int& amountToDraw, PlayerBehaviour& playerOfTheRound, const CardBehaviour& cardOnTopOfTossDeck) const
 {
-    if (_rulesManager->CheckPlusDiscardRule(cardOnTopOfTossDeck))
+    if (!_rulesManager->CheckPlusDiscardRule(cardOnTopOfTossDeck))
     {
-        if (_cardManager->GetSizeOfTossDeck() < amountToDraw)
-        {
-            playerOfTheRound.ReceiveCard(_cardManager->PopRandomCardFromTossDeck());
-        }
-        else
-        {
-            for (int i = 0; i < amountToDraw; i++)
-            {
-                playerOfTheRound.ReceiveCard(_cardManager->PopRandomCardFromTossDeck());
-            }
-        }
-                    
-        amountToDraw = 0;
+        return;
     }
+
+    if (_cardManager->GetSizeOfTossDeck() < amountToDraw)
+    {
+        PlayerDrawCardFromTossDeck(playerOfTheRound);
+        return;
+    }
+
+    for (int i = 0; i < amountToDraw; i++)
+    {
+        PlayerDrawCardFromTossDeck(playerOfTheRound);
+    }
+
+    amountToDraw = 0;
 }
 
 void UnoSystem::ExecuteReverseCard() const
@@ -456,6 +457,12 @@ void UnoSystem::GetPlayersInfo(std::vector<std::string>& outNames) const
     
     outNames.reserve(amountOfPlayers);
     GetPlayersNames(outNames, amountOfPlayers);
+}
+
+
+void UnoSystem::PlayerDrawCardFromTossDeck(PlayerBehaviour& playerOfTheRound) const
+{
+    playerOfTheRound.ReceiveCard(_cardManager->PopRandomCardFromTossDeck());
 }
 
 int UnoSystem::GetAmountOfPlayers() const
